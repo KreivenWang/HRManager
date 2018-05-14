@@ -1,0 +1,113 @@
+﻿<Control x:Class="HRManagerClient.OverWorkManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         Name="root">
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        DockPanel.Dock="Top">
+                                <cc:DBNavigationBar AddText="添加加班单"
+                                                    RemoveText="删除加班单"
+                                                    AddItemCommand="{Binding AddItemCommand}"
+                                                    RemoveItemCommand="{Binding RemoveItemCommand}" />
+                                <TextBox Text="{Binding ExcelPath, UpdateSourceTrigger=PropertyChanged}"
+                                         Margin="5"
+                                         Controls:TextBoxHelper.Watermark="请浏览或直接输入Excel文件路径"
+                                         Controls:TextBoxHelper.UseFloatingWatermark="True"
+                                         Controls:TextBoxHelper.ClearTextButton="True"></TextBox>
+                                <Button Margin="5"
+                                        Command="{Binding ImportCommand}"
+                                        Content="{Binding ImportButtonContent}"></Button>
+                            </StackPanel>
+                            
+                            <DataGrid ItemsSource="{Binding Model}"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      SelectedValue="{Binding SelectedItem}"
+                                      SelectionMode="Extended">
+                                
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="单据编号"
+                                                        Width="150"
+                                                        Binding="{Binding Number}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="员工"
+                                                        Width="150"
+                                                        IsReadOnly="True">
+                                        <DataGridTextColumn.Binding>
+                                            <MultiBinding StringFormat="{}[{0}]{1}">
+                                                <Binding Path="Employee.EmployeeNO" />
+                                                <Binding Path="Employee.EmployeeBaseInfo.EmployName" />
+                                            </MultiBinding>
+                                        </DataGridTextColumn.Binding>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="申请加班时长"
+                                                        Width="150"
+                                                        Binding="{Binding ApplyTime}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="开始时间"
+                                                        Width="150"
+                                                        Binding="{Binding BeginDateTime, StringFormat={}{0:yyyy-MM-dd HH:mm}, Converter={StaticResource StringToDateTimeConverter}}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="结束时间"
+                                                        Width="150"
+                                                        Binding="{Binding EndDateTime, StringFormat={}{0:yyyy-MM-dd HH:mm}, Converter={StaticResource StringToDateTimeConverter}}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="加班类型"
+                                                        Width="150"
+                                                        Binding="{Binding OverWorkType}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTemplateColumn Header="上班直落" IsReadOnly="True">
+                                        <!--<DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsOnDuty}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>-->
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsOnDuty}"
+                                                          HorizontalAlignment="Center"
+                                                          IsEnabled="False"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="下班直落" IsReadOnly="True">
+                                        <!--<DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsOffDuty}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>-->
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsOffDuty}"
+                                                          HorizontalAlignment="Center"
+                                                          IsEnabled="False"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="加班说明"
+                                                        Width="250"
+                                                        Binding="{Binding Description}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="制单人"
+                                                        Width="150"
+                                                        Binding="{Binding Creator}"
+                                                        IsReadOnly="True" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

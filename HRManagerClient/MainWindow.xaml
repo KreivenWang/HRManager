@@ -1,0 +1,699 @@
+﻿<Controls:MetroWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:hrManagerClient="clr-namespace:HRManagerClient"
+                      mc:Ignorable="d"
+                      x:Class="HRManagerClient.MainWindow"
+                      Title="人事考勤管理系统"
+                      MinHeight="576"
+                      MinWidth="1024"
+                      ResizeMode="CanResizeWithGrip"
+                      GlowBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="2"
+                      WindowState="Maximized"
+                      Icon="logo.png"
+                      d:DesignWidth="1024"
+                      d:DesignHeight="576">
+    <Controls:MetroWindow.Resources>
+        <Style TargetType="{x:Type TabControl}"
+               BasedOn="{StaticResource {x:Type TabControl}}">
+            <Setter Property="Foreground"
+                    Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="Background"
+                    Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+            <Setter Property="BorderBrush"
+                    Value="#00000000" />
+            <Setter Property="BorderThickness"
+                    Value="3" />
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="Padding"
+                    Value="1" />
+            <Setter Property="MinWidth"
+                    Value="10" />
+            <Setter Property="MinHeight"
+                    Value="10" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Center" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid ClipToBounds="True"
+                              SnapsToDevicePixels="True"
+                              KeyboardNavigation.TabNavigation="Local">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="ColumnDefinition0" />
+                                <ColumnDefinition x:Name="ColumnDefinition1"
+                                                  Width="0" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition x:Name="RowDefinition0"
+                                               Height="Auto" />
+                                <RowDefinition x:Name="RowDefinition1"
+                                               Height="*" />
+                            </Grid.RowDefinitions>
+                            <TabPanel x:Name="HeaderPanel"
+                                      Background="Transparent"
+                                      HorizontalAlignment="Center"
+                                      Grid.Column="0"
+                                      IsItemsHost="True"
+                                      Margin="2,2,2,0"
+                                      Grid.Row="0"
+                                      KeyboardNavigation.TabIndex="1"
+                                      Panel.ZIndex="1" />
+                            <Grid x:Name="ContentPanel"
+                                  Grid.Column="0"
+                                  KeyboardNavigation.DirectionalNavigation="Contained"
+                                  Grid.Row="1"
+                                  KeyboardNavigation.TabIndex="2"
+                                  KeyboardNavigation.TabNavigation="Local">
+                                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter x:Name="PART_SelectedContentHost"
+                                                      ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                                                      Content="{TemplateBinding SelectedContent}"
+                                                      ContentStringFormat="{TemplateBinding SelectedContentStringFormat}"
+                                                      ContentSource="SelectedContent"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      Margin="1" />
+                                </Border>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="TabStripPlacement"
+                                     Value="Bottom">
+                                <Setter Property="Grid.Row"
+                                        TargetName="HeaderPanel"
+                                        Value="1" />
+                                <Setter Property="Grid.Row"
+                                        TargetName="ContentPanel"
+                                        Value="0" />
+                                <Setter Property="Height"
+                                        TargetName="RowDefinition0"
+                                        Value="*" />
+                                <Setter Property="Height"
+                                        TargetName="RowDefinition1"
+                                        Value="Auto" />
+                                <Setter Property="Margin"
+                                        TargetName="HeaderPanel"
+                                        Value="2,0,2,2" />
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement"
+                                     Value="Left">
+                                <Setter Property="Grid.Row"
+                                        TargetName="HeaderPanel"
+                                        Value="0" />
+                                <Setter Property="Grid.Row"
+                                        TargetName="ContentPanel"
+                                        Value="0" />
+                                <Setter Property="Grid.Column"
+                                        TargetName="HeaderPanel"
+                                        Value="0" />
+                                <Setter Property="Grid.Column"
+                                        TargetName="ContentPanel"
+                                        Value="1" />
+                                <Setter Property="Width"
+                                        TargetName="ColumnDefinition0"
+                                        Value="Auto" />
+                                <Setter Property="Width"
+                                        TargetName="ColumnDefinition1"
+                                        Value="*" />
+                                <Setter Property="Height"
+                                        TargetName="RowDefinition0"
+                                        Value="*" />
+                                <Setter Property="Height"
+                                        TargetName="RowDefinition1"
+                                        Value="0" />
+                                <Setter Property="Margin"
+                                        TargetName="HeaderPanel"
+                                        Value="2,2,0,2" />
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement"
+                                     Value="Right">
+                                <Setter Property="Grid.Row"
+                                        TargetName="HeaderPanel"
+                                        Value="0" />
+                                <Setter Property="Grid.Row"
+                                        TargetName="ContentPanel"
+                                        Value="0" />
+                                <Setter Property="Grid.Column"
+                                        TargetName="HeaderPanel"
+                                        Value="1" />
+                                <Setter Property="Grid.Column"
+                                        TargetName="ContentPanel"
+                                        Value="0" />
+                                <Setter Property="Width"
+                                        TargetName="ColumnDefinition0"
+                                        Value="*" />
+                                <Setter Property="Width"
+                                        TargetName="ColumnDefinition1"
+                                        Value="Auto" />
+                                <Setter Property="Height"
+                                        TargetName="RowDefinition0"
+                                        Value="*" />
+                                <Setter Property="Height"
+                                        TargetName="RowDefinition1"
+                                        Value="0" />
+                                <Setter Property="Margin"
+                                        TargetName="HeaderPanel"
+                                        Value="0,2,2,2" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource SquareButtonStyle}">
+            <Setter Property="BorderThickness"
+                    Value="0"></Setter>
+            <Setter Property="FontWeight"
+                    Value="Normal"></Setter>
+        </Style>
+    </Controls:MetroWindow.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding MainWindowLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Controls:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Border Background="White">
+                <Rectangle Fill="{DynamicResource AccentColorBrush}"
+                           Width="7"
+                           Height="20">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{StaticResource appbar_clothes_tie}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Border>
+        </DataTemplate>
+    </Controls:MetroWindow.IconTemplate>
+    <Grid>
+        <DockPanel>
+            <Grid DockPanel.Dock="Top">
+                <Rectangle>
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0,1"
+                                             StartPoint="1,0">
+                            <GradientStop x:Name="GradientStop1"
+                                          Color="#FFCCEFFF"
+                                          Offset="0.443" />
+                            <GradientStop Color="Transparent"
+                                          Offset="0" />
+                            <GradientStop Color="Transparent"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation From="0"
+                                                     To="1"
+                                                     Duration="0:0:5"
+                                                     RepeatBehavior="Forever"
+                                                     AutoReverse="True"
+                                                     AccelerationRatio="0.5"
+                                                     DecelerationRatio="0.5"
+                                                     Storyboard.TargetName="GradientStop1"
+                                                     Storyboard.TargetProperty="Offset" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Rectangle.Triggers>
+                </Rectangle>
+                <DockPanel>
+                    <StackPanel Margin="5 15 0 0">
+                        <StackPanel.Resources>
+                            <DrawingBrush x:Key="MyWireBrushResource"
+                                          Viewport="0,0,10,10"
+                                          ViewportUnits="Absolute"
+                                          TileMode="Tile">
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <GeometryDrawing Geometry="M0,0 L1,0 1,0.1, 0,0.1Z"
+                                                         Brush="#00CCCCFF" />
+                                        <GeometryDrawing Geometry="M0,0 L0,1 0.1,1, 0.1,0Z"
+                                                         Brush="#00CCCCFF" />
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </StackPanel.Resources>
+                        <Border x:Name="TextBorder"
+                                HorizontalAlignment="Left"
+                                Background="{StaticResource ResourceKey=MyWireBrushResource}"
+                                VerticalAlignment="Center">
+                            <TextBlock x:Name="RealText"
+                                       FontFamily="楷体"
+                                       FontSize="24px"
+                                       Margin="5 0"
+                                       Text="人事考勤管理系统">
+                                <TextBlock.Foreground>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                                         StartPoint="0.5,0">
+                                        <GradientStop Color="#FF15A087"
+                                                      Offset="0.437" />
+                                        <GradientStop Color="#FFC9EBFF" />
+                                    </LinearGradientBrush>
+                                </TextBlock.Foreground>
+                                <TextBlock.TextEffects>
+                                    <TextEffect PositionCount="1"
+                                                x:Name="MyTextEffect">
+                                        <TextEffect.Transform>
+                                            <SkewTransform x:Name="TextEffectSkewTransform"
+                                                           CenterX="100"
+                                                           CenterY="15" />
+                                        </TextEffect.Transform>
+                                    </TextEffect>
+                                </TextBlock.TextEffects>
+
+                                <TextBlock.Triggers>
+                                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation From="0"
+                                                                 To="15"
+                                                                 Duration="0:0:0.25"
+                                                                 RepeatBehavior="Forever"
+                                                                 AutoReverse="True"
+                                                                 Storyboard.TargetName="TextEffectSkewTransform"
+                                                                 Storyboard.TargetProperty="AngleX" />
+
+                                                <DoubleAnimation From="0"
+                                                                 To="43"
+                                                                 Duration="0:0:0.5"
+                                                                 RepeatBehavior="Forever"
+                                                                 AutoReverse="True"
+                                                                 Storyboard.TargetName="TextEffectSkewTransform"
+                                                                 Storyboard.TargetProperty="AngleY" />
+
+                                                <DoubleAnimation From="30"
+                                                                 To="300"
+                                                                 Duration="0:0:13"
+                                                                 RepeatBehavior="Forever"
+                                                                 AutoReverse="True"
+                                                                 Storyboard.TargetName="TextEffectSkewTransform"
+                                                                 Storyboard.TargetProperty="CenterX" />
+
+                                                <Int32AnimationUsingKeyFrames Storyboard.TargetName="MyTextEffect"
+                                                                              Storyboard.TargetProperty="PositionStart"
+                                                                              Duration="0:0:13"
+                                                                              AutoReverse="True"
+                                                                              RepeatBehavior="Forever">
+                                                    <DiscreteInt32KeyFrame Value="0"
+                                                                           KeyTime="0:0:0" />
+                                                    <DiscreteInt32KeyFrame Value="1"
+                                                                           KeyTime="0:0:1" />
+                                                    <DiscreteInt32KeyFrame Value="2"
+                                                                           KeyTime="0:0:2" />
+                                                    <DiscreteInt32KeyFrame Value="3"
+                                                                           KeyTime="0:0:3" />
+                                                    <DiscreteInt32KeyFrame Value="4"
+                                                                           KeyTime="0:0:4" />
+                                                    <DiscreteInt32KeyFrame Value="5"
+                                                                           KeyTime="0:0:5" />
+                                                    <DiscreteInt32KeyFrame Value="6"
+                                                                           KeyTime="0:0:6" />
+                                                    <DiscreteInt32KeyFrame Value="7"
+                                                                           KeyTime="0:0:7" />
+                                                    <DiscreteInt32KeyFrame Value="8"
+                                                                           KeyTime="0:0:8" />
+                                                    <DiscreteInt32KeyFrame Value="9"
+                                                                           KeyTime="0:0:9" />
+                                                    <DiscreteInt32KeyFrame Value="10"
+                                                                           KeyTime="0:0:10" />
+                                                    <DiscreteInt32KeyFrame Value="11"
+                                                                           KeyTime="0:0:11" />
+                                                    <DiscreteInt32KeyFrame Value="12"
+                                                                           KeyTime="0:0:12" />
+                                                </Int32AnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </TextBlock.Triggers>
+                            </TextBlock>
+                        </Border>
+
+                        <Rectangle x:Name="ReflectedText"
+                                   Height="{Binding ActualHeight, ElementName=TextBorder}"
+                                   Width="{Binding ActualWidth, ElementName=TextBorder}"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top">
+                            <Rectangle.OpacityMask>
+                                <LinearGradientBrush StartPoint="0.5,0"
+                                                     EndPoint="0.5,1">
+                                    <GradientStop Offset="0.0"
+                                                  Color="#66000000" />
+                                    <GradientStop Offset="1.0"
+                                                  Color="#00000000" />
+                                </LinearGradientBrush>
+                            </Rectangle.OpacityMask>
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{Binding ElementName=TextBorder}">
+                                    <VisualBrush.RelativeTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="1"
+                                                            ScaleY="-1" />
+                                            <TranslateTransform Y="1" />
+                                        </TransformGroup>
+                                    </VisualBrush.RelativeTransform>
+                                </VisualBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </StackPanel>
+                    <Viewbox>
+                        <TabControl>
+                            <TabControl.Resources>
+                                <Style TargetType="{x:Type Button}"
+                                       BasedOn="{StaticResource {x:Type Button}}">
+                                    <Setter Property="IsEnabled"
+                                            Value="False" />
+                                </Style>
+                                <Style TargetType="{x:Type TabItem}"
+                                       BasedOn="{StaticResource {x:Type TabItem}}">
+                                    <Setter Property="Padding"
+                                            Value="40 5 40 0" />
+                                    <Setter Property="FontFamily"
+                                            Value="楷体"></Setter>
+                                </Style>
+                            </TabControl.Resources>
+                            <TabItem Header="主页"
+                                     IsSelected="{Binding IsMainPageTabItemSelected}">
+                                <TabItem.HeaderTemplate>
+                                    <DataTemplate>
+                                        <cc:ZoomImageControl Text="{Binding}"
+                                                             ImageSource="ClientRes/Image/home_32.png"
+                                                             IconWidth="26"
+                                                             IconHeight="26" />
+                                    </DataTemplate>
+                                </TabItem.HeaderTemplate>
+                                <Button IsHitTestVisible="False">
+                                    <TextBlock VerticalAlignment="Center">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="当前用户: {0}  用户类型: {1}">
+                                                <Binding Path="CurUserName"></Binding>
+                                                <Binding Path="CurUserType"></Binding>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Button>
+                            </TabItem>
+                            <TabItem Header="人事管理"
+                                     IsSelected="{Binding IsHRTabItemSelected}">
+                                <TabItem.HeaderTemplate>
+                                    <DataTemplate>
+                                        <!--<cc:ZoomIconControl Text="{Binding}"
+                                            Visual="{DynamicResource appbar_group}" IconWidth="28"/>-->
+                                        <cc:ZoomImageControl Text="{Binding}"
+                                                             ImageSource="ClientRes/Image/participation_rate.png"
+                                                             IconWidth="26"
+                                                             IconHeight="26" />
+                                    </DataTemplate>
+                                </TabItem.HeaderTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Command="{Binding DepartmentManageCommand}"
+                                            IsEnabled="True"
+                                            Content="部门管理" />
+                                    <Button Command="{Binding OperatingPostManageCommand}"
+                                            Grid.Column="1"
+                                            IsEnabled="True"
+                                            Content="岗位管理" />
+                                    <Button Grid.Column="2"
+                                            Command="{Binding EmployeeManageCommand}"
+                                            IsEnabled="True"
+                                            Content="员工档案" />
+                                    <Button Grid.Column="3"
+                                            Command="{Binding OnJobManageCommand}"
+                                            IsEnabled="True"
+                                            Content="在职管理" />
+                                    <Button Grid.Column="4"
+                                            Command="{Binding OffJobManageCommand}"
+                                            IsEnabled="True"
+                                            Content="离职管理" />
+                                    <Button Grid.Column="5"
+                                            Command="{Binding PostTransferManageCommand}"
+                                            IsEnabled="True"
+                                            Content="岗位调动" />
+                                    <Button Grid.Column="6"
+                                            Command="{Binding DormitoryManageCommand}"
+                                            IsEnabled="True"
+                                            Content="宿舍管理" />
+                                    <Button Grid.Column="7"
+                                            Content="基本工资"
+                                            Command="{Binding SalarySetCommand}"
+                                            IsEnabled="True" />
+                                    <Button Grid.Column="8"
+                                            Content="产牌打印" />
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="考勤管理"
+                                     IsSelected="{Binding IsAttTabItemSelected}">
+                                <TabItem.HeaderTemplate>
+                                    <DataTemplate>
+                                        <!--<cc:ZoomIconControl Text="{Binding}"
+                                            Visual="{DynamicResource appbar_people_checkbox}"
+                                            IconWidth="25"
+                                            IconHeight="25" />-->
+                                        <cc:ZoomImageControl Text="{Binding}"
+                                                             ImageSource="ClientRes/Image/to_do_list_cheked_all.png"
+                                                             IconWidth="26"
+                                                             IconHeight="26" />
+                                    </DataTemplate>
+                                </TabItem.HeaderTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Content="考勤采集"
+                                            Command="{Binding AttendanceManageCommand}"
+                                            IsEnabled="True" />
+                                    <Button Grid.Column="1"
+                                            Command="{Binding VaccationSolutionCommand}"
+                                            IsEnabled="True"
+                                            Content="休假方案" />
+                                    <Button Grid.Column="2"
+                                            Content="放假管理"
+                                            IsEnabled="True"
+                                            Command="{Binding VaccationSolutionAsignCommand}" />
+                                    <Button Grid.Column="3"
+                                            Command="{Binding DefWorkArrangeCommand}"
+                                            IsEnabled="True"
+                                            Content="班次定义" />
+                                    <Button Grid.Column="4"
+                                            Command="{Binding AsignWorkArrangeCommand}"
+                                            IsEnabled="True"
+                                            Content="排班管理" />
+                                    <Button Grid.Column="5"
+                                            Content="请假管理"
+                                            IsEnabled="True"
+                                            Command="{Binding AskLeaveManageCommand}" />
+                                    <Button Grid.Column="6"
+                                            Content="出差管理"
+                                            IsEnabled="True"
+                                            Command="{Binding BusinessTripManageCommand}" />
+                                    <Button Grid.Column="7"
+                                            Content="补签管理"
+                                            IsEnabled="True"
+                                            Command="{Binding ReSignInManageCommand}" />
+                                    <Button Grid.Column="8"
+                                            Content="加班管理"
+                                            IsEnabled="True"
+                                            Command="{Binding OverWorkManageCommand}" />
+                                    <Button Grid.Column="9"
+                                            Content="补卡管理"
+                                            Command="{Binding CardFillRecordManageCommand}"
+                                            IsEnabled="True" />
+                                    <Button Grid.Column="10"
+                                            Content="调休管理"
+                                            Command="{Binding TiaoXiuManageCommand}"
+                                            IsEnabled="True" />
+                                    <Button Grid.Column="11"
+                                            Content="考勤分析"
+                                            IsEnabled="True"
+                                            Command="{Binding AttendanceAnalysisCommand}" />
+                                    <Button Grid.Column="12"
+                                            Content="薪资明细"
+                                            IsEnabled="True"
+                                            Command="{Binding SalaryDetailCommand}" />
+
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="系统管理"
+                                     IsSelected="{Binding IsSysTabItemSelected}">
+                                <TabItem.HeaderTemplate>
+                                    <DataTemplate>
+                                        <!--<cc:ZoomIconControl Text="{Binding}"
+                                            Visual="{DynamicResource appbar_settings}" IconWidth="25"/>-->
+                                        <cc:ZoomImageControl Text="{Binding}"
+                                                             ImageSource="ClientRes/Image/widgets.png"
+                                                             IconWidth="26"
+                                                             IconHeight="26" />
+                                    </DataTemplate>
+                                </TabItem.HeaderTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Content="系统参数设置"
+                                            IsEnabled="True"
+                                            Command="{Binding SysArgsManageCommand}" />
+                                    <Button Grid.Column="1"
+                                            Content="人事考勤参数设置"
+                                            Command="{Binding AttArgManageCommand}"
+                                            IsEnabled="True" />
+                                    <Button Grid.Column="2"
+                                            Content="薪资基数设置"
+                                            Command="{Binding BaseSalaryManageCommand}"
+                                            IsEnabled="True" />
+                                    <Button Grid.Column="3"
+                                            Content="所得税与公积金设置"
+                                            Command="{Binding TaxManageCommand}"
+                                            IsEnabled="True"/>
+                                    <Button Grid.Column="4"
+                                            Content="用户管理"
+                                            Command="{Binding SysUserManageCommand}"
+                                            IsEnabled="True" />
+                                    <Button Grid.Column="5"
+                                            Content="系统角色"
+                                            Command="{Binding SysRoleManageCommand}"
+                                            IsEnabled="True" />
+                                    <Button Grid.Column="6"
+                                            Content="操作日志查看" />
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="报表"
+                                     IsSelected="{Binding IsRptTabItemSelected}">
+                                <TabItem.HeaderTemplate>
+                                    <DataTemplate>
+                                        <!--<cc:ZoomIconControl Text="{Binding}"
+                                            Visual="{DynamicResource appbar_graph_bar}"
+                                            IconWidth="24"
+                                            IconHeight="23" />-->
+                                        <cc:ZoomImageControl Text="{Binding}"
+                                                             ImageSource="ClientRes/Image/table_multiple.png"
+                                                             IconWidth="26"
+                                                             IconHeight="26" />
+                                    </DataTemplate>
+                                </TabItem.HeaderTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Content="档案资料"
+                                            IsEnabled="True"
+                                            Command="{Binding ReportEmployeeProfileCommand}" />
+                                    <Button Grid.Column="1"
+                                            Content="人事变动"
+                                            IsEnabled="True"
+                                            Command="{Binding ReportEmployeeTransferCommand}" />
+                                    <Button Grid.Column="2"
+                                            Content="薪资总表"
+                                            Command="{Binding ReportDepartmentSalaryCommand}"
+                                            IsEnabled="True"/>
+                                    <Button Grid.Column="3"
+                                            Content="薪资明细"
+                                            IsEnabled="True"
+                                            Command="{Binding ReportEmployeeSalaryCommand}" />
+                                    <Button Grid.Column="4"
+                                            Content="考勤明细"
+                                            Command="{Binding ReportEmployeeDayAttCommand}"
+                                            IsEnabled="True"/>
+                                    <Button Grid.Column="5"
+                                            Content="月考勤统计"
+                                            Command="{Binding ReportEmployeeMonthAttCommand}" 
+                                            IsEnabled="True"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Viewbox>
+                    
+                </DockPanel>
+            </Grid>
+
+            <Rectangle Height="3"
+                       DockPanel.Dock="Top"
+                       Fill="{StaticResource AccentColorBrush}" />
+            <StatusBar DockPanel.Dock="Bottom">
+                <TextBlock Text="{Binding StatusText}"></TextBlock>
+            </StatusBar>
+
+            <Controls:TransitioningContentControl Content="{Binding Content}"
+                                                  Transition="Left" />
+        </DockPanel>
+        <!--<ToggleButton Content="123" Width="123" Height="123" Background="Red" Name="t"/>
+        <Controls:Flyout Header="Flyout"
+                         Position="Bottom"
+                         Width="200" IsModal="True" IsOpen="{Binding IsChecked, ElementName=t}">
+            <TextBlock Text="123" />
+        </Controls:Flyout>-->
+        <TextBlock Name="timeTextBlock"
+                   DockPanel.Dock="Right"
+                   HorizontalAlignment="Right"
+                   Foreground="White"
+                   Margin="20 3"
+                   VerticalAlignment="Bottom"></TextBlock>
+    </Grid>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Header="请选择"
+                             Position="Right"
+                             IsOpen="{Binding IsFlyoutOpen}"
+                             Background="{StaticResource AccentColorBrush}"
+                             IsModal="True">
+                <ContentControl Content="{Binding FLyoutContent}">
+                     <ContentControl.ContentTemplateSelector>
+                         <hrManagerClient:FlyoutTemplateSelector DpSelectTemplate="{StaticResource DpSelectTemplate}"/>
+                     </ContentControl.ContentTemplateSelector>
+                 </ContentControl>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+</Controls:MetroWindow>

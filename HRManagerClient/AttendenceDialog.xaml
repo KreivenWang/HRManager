@@ -1,0 +1,15 @@
+﻿<Controls:MetroWindow x:Class="HRManagerClient.AttendenceDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:local="clr-namespace:HRManagerClient"
+                      Owner="{x:Static local:MainViewModel.MainWindowHandler}"
+                      Title="休假方案"
+                      SizeToContent="WidthAndHeight"
+                      WindowStyle="ToolWindow"
+                      WindowStartupLocation="CenterOwner"
+                      Style="{StaticResource ToolbarDialogWindow}">
+    <Grid>
+        
+    </Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,67 @@
+﻿<Control x:Class="HRManagerClient.AskLeaveManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         Name="root">
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <cc:DBNavigationBar DockPanel.Dock="Top"
+                                                AddText="添加假单"
+                                                RemoveText="删除假单"
+                                                AddItemCommand="{Binding AddItemCommand}"
+                                                RemoveItemCommand="{Binding RemoveItemCommand}"/>
+                            <DataGrid ItemsSource="{Binding Model}"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      SelectedValue="{Binding SelectedItem}">
+                                
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="单据编号"
+                                                        Width="150"
+                                                        Binding="{Binding AskForLeaveNo}" 
+                                                        IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="假单标题"
+                                                        Width="150"
+                                                        Binding="{Binding AskForLeaveTitle}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="员工"
+                                                        Width="150"
+                                                        Binding="{Binding Employee.EmployeeBaseInfo.EmployName}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="开始时间"
+                                                        Width="150"
+                                                        Binding="{Binding BeginDate, StringFormat={}{0:yyyy-MM-dd HH:mm}, Converter={StaticResource StringToDateTimeConverter}}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="结束时间"
+                                                        Width="150"
+                                                        Binding="{Binding EndDate, StringFormat={}{0:yyyy-MM-dd HH:mm}, Converter={StaticResource StringToDateTimeConverter}}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="休假类型"
+                                                        Width="150"
+                                                        Binding="{Binding LeaveType}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="原因"
+                                                        Width="250"
+                                                        Binding="{Binding Reason}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="制单人"
+                                                        Width="150"
+                                                        Binding="{Binding Creator}"
+                                                        IsReadOnly="True" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

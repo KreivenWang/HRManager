@@ -1,0 +1,187 @@
+﻿<Control x:Class="HRManagerClient.EmployeeManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Top"
+                                        Orientation="Horizontal">
+                                <Button Command="{Binding AddItemCommand}"
+                                        Content="添加员工"
+                                        Margin="5" />
+                                <Button Command="{Binding RemoveItemCommand}"
+                                        Content="删除员工"
+                                        Margin="5" />
+                                <Button Command="{Binding RefreshCommand}"
+                                        Content="刷新"
+                                        Margin="5" />
+                            </StackPanel>
+                            <Expander DockPanel.Dock="Top"
+                                      Header="筛选条件"
+                                      Padding="0">
+                                <WrapPanel Background="AntiqueWhite">
+                                    <WrapPanel.Resources>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="TextAlignment"
+                                                    Value="Right" />
+                                            <Setter Property="VerticalAlignment"
+                                                    Value="Center" />
+                                            <Setter Property="Margin"
+                                                    Value="5" />
+                                        </Style>
+                                        <Style TargetType="{x:Type TextBox}"
+                                               BasedOn="{StaticResource {x:Type TextBox}}">
+                                            <Setter Property="MinWidth"
+                                                    Value="150" />
+                                            <Setter Property="Margin"
+                                                    Value="5" />
+                                        </Style>
+                                        <Style TargetType="{x:Type ComboBox}"
+                                               BasedOn="{StaticResource {x:Type ComboBox}}">
+                                            <Setter Property="MinWidth"
+                                                    Value="70" />
+                                            <Setter Property="Margin"
+                                                    Value="5" />
+                                        </Style>
+                                        <Style TargetType="{x:Type DatePicker}"
+                                               BasedOn="{StaticResource {x:Type DatePicker}}">
+                                            <Setter Property="MinWidth"
+                                                    Value="100" />
+                                            <Setter Property="Margin"
+                                                    Value="5" />
+                                        </Style>
+                                    </WrapPanel.Resources>
+                                    <TextBlock Text="姓名:"/>
+                                    <TextBox Text="{Binding NameFilterText, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock Text="工号:"/>
+                                    <TextBox Text="{Binding WorkNumFilterText, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock Text="电话:" />
+                                    <TextBox Text="{Binding PhoneFilterText, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Text="现住址:" />
+                                    <TextBox Text="{Binding CurSiteFilterText, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Text="部门:" />
+                                    <ComboBox Text="{Binding WorkNumFilterText, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Text="岗位:" />
+                                    <ComboBox Text="{Binding WorkNumFilterText, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <Border BorderBrush="LightGray"
+                                            BorderThickness="1"
+                                            Margin="2">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock Text="性别:" />
+                                            <RadioButton IsChecked="{Binding SexFilter, Converter={StaticResource EnumBooleanConverter}, ConverterParameter={x:Static hrmodel:SexEnum.Unknown}}"
+                                                         Content="全部"
+                                                         GroupName="sexGroup"
+                                                         Margin="5 0 5 3" />
+                                            <RadioButton IsChecked="{Binding SexFilter, Converter={StaticResource EnumBooleanConverter}, ConverterParameter={x:Static hrmodel:SexEnum.Male}}"
+                                                     Content="男"
+                                                     GroupName="sexGroup"
+                                                     Margin="5 0 5 3" />
+                                            <RadioButton IsChecked="{Binding SexFilter, Converter={StaticResource EnumBooleanConverter}, ConverterParameter={x:Static hrmodel:SexEnum.Female}}"
+                                                         Content="女"
+                                                         GroupName="sexGroup"
+                                                         Margin="5 0 5 3" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border BorderBrush="LightGray"
+                                            BorderThickness="1"
+                                            Margin="2">
+                                    <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="状态:" />
+                                            <RadioButton IsChecked="{Binding JobStateFilter, Converter={StaticResource EnumBooleanConverter}, ConverterParameter={x:Static hrmodel:JobStatusEnum.Other}}"
+                                                     Content="全部"
+                                                         GroupName="epStatus"
+                                                         Margin="5 0 5 3" />
+                                        <RadioButton IsChecked="{Binding JobStateFilter, Converter={StaticResource EnumBooleanConverter}, ConverterParameter={x:Static hrmodel:JobStatusEnum.OnJob}}"
+                                                     Content="在职"
+                                                         GroupName="epStatus"
+                                                         Margin="5 0 5 3" />
+                                        <RadioButton IsChecked="{Binding JobStateFilter, Converter={StaticResource EnumBooleanConverter}, ConverterParameter={x:Static hrmodel:JobStatusEnum.Resigned}}"
+                                                     Content="离职"
+                                                         GroupName="epStatus"
+                                                         Margin="5 0 5 3" />
+                                    </StackPanel>
+                                    </Border>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="入职时间:" />
+                                        <DatePicker SelectedDate="{Binding HireDateStartFilter, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:yyyy-MM-dd}}" />
+                                        <TextBlock Text="至" />
+                                        <DatePicker SelectedDate="{Binding HireDateEndFilter, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:yyyy-MM-dd}}" />
+                                    </StackPanel>
+                                    <Button Command="{Binding ClearFilterCommand}"
+                                            Content="清除所有条件" Margin="5"/>
+                                </WrapPanel>
+                            </Expander>
+                            <DataGrid ItemsSource="{Binding FiltedItems}"
+                                      AutoGenerateColumns="False"
+                                      
+                                      
+                                      
+                                      CanUserAddRows="False"
+                                      SelectedValue="{Binding SelectedItem}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding ShowEmployeeDetailCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="姓名"
+                                                        Binding="{Binding EmployeeBaseInfo.EmployName}"
+                                                        Width="75"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="工号"
+                                                        Binding="{Binding EmployeeNO}"
+                                                        Width="75"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="部门"
+                                                        Binding="{Binding Department.DepartName, Mode=TwoWay}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="岗位"
+                                                        Binding="{Binding OperatingPost.OperatingPostName}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="性别"
+                                                        Binding="{Binding EmployeeBaseInfo.Sex, Converter={StaticResource EnumChStringConverter}}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="生日"
+                                                        Binding="{Binding EmployeeBaseInfo.Birthday, StringFormat={}{0:yyyy-MM-dd}, Converter={StaticResource StringToDateTimeConverter}}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="入职时间"
+                                                        Binding="{Binding HireDate, StringFormat={}{0:yyyy-MM-dd}, Converter={StaticResource StringToDateTimeConverter}}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="联系电话"
+                                                        Binding="{Binding EmployeeBaseInfo.Phone}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="现住址"
+                                                        Binding="{Binding EmployeeBaseInfo.CurSite}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="人员状态"
+                                                        Binding="{Binding State, Converter={StaticResource EnumChStringConverter}}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="备注"
+                                                        Binding="{Binding EmployeeBaseInfo.Remark}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

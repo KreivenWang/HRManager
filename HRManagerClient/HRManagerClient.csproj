@@ -1,0 +1,929 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{048C4523-2A54-48DD-9044-2F6617902935}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HRManagerClient</RootNamespace>
+    <AssemblyName>HRManagerClient</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact">
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.1.3\lib\net40\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19038, Culture=neutral, PublicKeyToken=0e453835af4ee6ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net40\GalaSoft.MvvmLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=f46ff315b1088208, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net40\GalaSoft.MvvmLight.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\packages\MahApps.Metro.1.3.0-ALPHA172\lib\net40\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=2.6.8.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\net40\System.IO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime, Version=2.6.8.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\net40\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks, Version=2.6.8.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\net40\System.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Content\AttendenceManagement\SalaryDetailUI.xaml.cs">
+      <DependentUpon>SalaryDetailUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\AttendenceManagement\SalaryDetailViewModel.cs" />
+    <Compile Include="Content\AttendenceManagement\AttendenceManagerUI.xaml.cs">
+      <DependentUpon>AttendenceManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\AttendenceManagement\AttendenceManagerViewModel.cs" />
+    <Compile Include="Content\AttendenceManagement\AttendeceAnalysisUI.xaml.cs">
+      <DependentUpon>AttendeceAnalysisUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\AttendenceManagement\AttendeceAnalysisViewModel.cs" />
+    <Compile Include="Content\DocumentsManagement\CreateTiaoXiuDialog.xaml.cs">
+      <DependentUpon>CreateTiaoXiuDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\CreateOverWorkDialog.xaml.cs">
+      <DependentUpon>CreateOverWorkDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\TiaoXiuManagerUI.xaml.cs">
+      <DependentUpon>TiaoXiuManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\TiaoXiuManagerViewModel.cs" />
+    <Compile Include="Content\DocumentsManagement\OverWorkManagerUI.xaml.cs">
+      <DependentUpon>OverWorkManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\OverWorkManagerViewModel.cs" />
+    <Compile Include="Content\DocumentsManagement\ReSignInManagerUI.xaml.cs">
+      <DependentUpon>ReSignInManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\ReSignInManagerViewModel.cs" />
+    <Compile Include="Content\DocumentsManagement\BusinessTripManagerUI.xaml.cs">
+      <DependentUpon>BusinessTripManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\BusinessTripManagerViewModel.cs" />
+    <Compile Include="Content\DocumentsManagement\CreateReSignInDialog.xaml.cs">
+      <DependentUpon>CreateReSignInDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\CreateBusinessTripDialog.xaml.cs">
+      <DependentUpon>CreateBusinessTripDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\CreateAskLeaveDialog.xaml.cs">
+      <DependentUpon>CreateAskLeaveDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\AskLeaveManagerUI.xaml.cs">
+      <DependentUpon>AskLeaveManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DocumentsManagement\AskLeaveManagerViewModel.cs" />
+    <Compile Include="Content\DocumentsManagement\CreateDocumentBillDialog.cs" />
+    <Compile Include="Content\CardFillManagement\CardFillManagerUI.xaml.cs">
+      <DependentUpon>CardFillManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\CardFillManagement\CardFillManagerViewModel.cs" />
+    <Compile Include="Content\DepartmentSelectDialog.xaml.cs">
+      <DependentUpon>DepartmentSelectDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DepartmentManagement\DepartmentViewModel.cs" />
+    <Compile Include="Content\DepartmentManagement\DepartmentManagerUI.xaml.cs">
+      <DependentUpon>DepartmentManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\DepartmentManagement\DepartmentManagerViewModel.cs" />
+    <Compile Include="Content\DpSelectVM.cs" />
+    <Compile Include="Content\EmployeeManagement\BaseSalarySet\BaseSalarySetUI.xaml.cs">
+      <DependentUpon>BaseSalarySetUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeManagement\BaseSalarySet\BaseSalarySetViewModel.cs" />
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\PostTransferAddDialog.xaml.cs">
+      <DependentUpon>PostTransferAddDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\PostTransferAddViewModel.cs" />
+    <Compile Include="Content\FlyoutTemplateSelector.cs" />
+    <Compile Include="Content\Report\DepartmentReportViewModel.cs" />
+    <Compile Include="Content\Report\EmployeeReportViewModel.cs" />
+    <Compile Include="Content\Report\DepartmentReportUI.xaml.cs">
+      <DependentUpon>DepartmentReportUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Report\ReportUI.xaml.cs">
+      <DependentUpon>ReportUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Report\ReportViewModel.cs" />
+    <Compile Include="Content\SystemArgsManagement\TaxManagerManagerUI.xaml.cs">
+      <DependentUpon>TaxManagerManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\SystemArgsManagement\BaseSalaryManagerUI.xaml.cs">
+      <DependentUpon>BaseSalaryManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\SystemArgsManagement\AttArgsManagerUI.xaml.cs">
+      <DependentUpon>AttArgsManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\SystemArgsManagement\TaxManagerViewModel.cs" />
+    <Compile Include="Content\SystemArgsManagement\BaseSalaryManagerViewModel.cs" />
+    <Compile Include="Content\SystemArgsManagement\SystemArgsManagerUI.xaml.cs">
+      <DependentUpon>SystemArgsManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\SystemArgsManagement\AttArgsManagerViewModel.cs" />
+    <Compile Include="Content\SystemArgsManagement\SystemArgsManagerViewModel.cs" />
+    <Compile Include="Content\SystemUserManagement\PasswordEditDialog.xaml.cs">
+      <DependentUpon>PasswordEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\SystemUserManagement\SystemRoleManagerUI.xaml.cs">
+      <DependentUpon>SystemRoleManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\SystemUserManagement\SystemUserManagerUI.xaml.cs">
+      <DependentUpon>SystemUserManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\SystemUserManagement\SystemRoleManagerViewModel.cs" />
+    <Compile Include="Content\SystemUserManagement\SystemUserManagerViewModel.cs" />
+    <Compile Include="Content\VacationManagement\VacationSolutionManagerViewModel.cs" />
+    <Compile Include="Content\VacationManagement\VacationSolutionAsignUI.xaml.cs">
+      <DependentUpon>VacationSolutionAsignUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\VacationManagement\VacationSolutionAsignViewModel.cs" />
+    <Compile Include="Content\VacationPlanSelectDialog.xaml.cs">
+      <DependentUpon>VacationPlanSelectDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\WkarDefSelectDialog.xaml.cs">
+      <DependentUpon>WkarDefSelectDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\PostSelectDialog.xaml.cs">
+      <DependentUpon>PostSelectDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeSelectDialog.xaml.cs">
+      <DependentUpon>EmployeeSelectDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeManagement\BaseInfoManagement\ImageBrowseDialog.cs" />
+    <Compile Include="Content\EmployeeManagement\DormitoryManagement\DormitoryManagerViewModel.cs" />
+    <Compile Include="Content\EmployeeManagement\DormitoryManagement\DormitoryManagerUI.xaml.cs">
+      <DependentUpon>DormitoryManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\ExpireRemindConverter.cs" />
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\ExpireTipWindow.xaml.cs">
+      <DependentUpon>ExpireTipWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\PostTransferManagerUI.xaml.cs">
+      <DependentUpon>PostTransferManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\OffJobManagerUI.xaml.cs">
+      <DependentUpon>OffJobManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\PostTransferManagerViewModel.cs" />
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\OnJobManagerUI.xaml.cs">
+      <DependentUpon>OnJobManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\OffJobManagerViewModel.cs" />
+    <Compile Include="Content\EmployeeManagement\OnJobManagement\OnJobManagerViewModel.cs" />
+    <Compile Include="Content\OperatingPostManagement\OperatingPostManagerUI.xaml.cs">
+      <DependentUpon>OperatingPostManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\OperatingPostManagement\OperatingPostManagerViewModel.cs" />
+    <Compile Include="Content\WorkArrangement\WorkArrangementAsignUI.xaml.cs">
+      <DependentUpon>WorkArrangementAsignUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\WorkArrangement\WorkArrangementDefineUI.xaml.cs">
+      <DependentUpon>WorkArrangementDefineUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\WorkArrangement\WorkArrangementAsignViewModel.cs" />
+    <Compile Include="Content\WorkArrangement\WorkArrangementDefineViewModel.cs" />
+    <Compile Include="CSVConverter.cs" />
+    <Compile Include="CustomControls\TimeSpanPicker.cs" />
+    <Compile Include="CustomControls\DBNavigationBar.cs" />
+    <Compile Include="LoginDialog.xaml.cs">
+      <DependentUpon>LoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelSource.cs" />
+    <Compile Include="CustomControls\MainPageButton.cs" />
+    <Compile Include="CustomControls\ZoomImageControl.cs" />
+    <Compile Include="CustomControls\ZoomIconControl.cs" />
+    <Compile Include="Content\EmployeeManagement\BaseInfoManagement\EmployeeManagerViewModel.cs" />
+    <Compile Include="AttendenceDialog.xaml.cs">
+      <DependentUpon>AttendenceDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\MyDateTimePicker.cs" />
+    <Compile Include="Content\EmployeeManagement\BaseInfoManagement\EmployeeEditViewModel.cs" />
+    <Compile Include="MainPageUI.xaml.cs">
+      <DependentUpon>MainPageUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\VacationManagement\VacationSolutionViewModel.cs" />
+    <Compile Include="Utility\Converter\VaccationYearToDateConverter.cs" />
+    <Compile Include="Utility\Converter\EnumChStringConverter.cs" />
+    <Compile Include="Utility\Converter\EnumTranslater.cs" />
+    <Compile Include="Utility\Converter\HasValueToVisibilityConverter.cs" />
+    <Compile Include="Utility\DateTimeExtension.cs" />
+    <Compile Include="Utility\EntityCollection.cs" />
+    <Compile Include="Utility\Converter\DateStringConverter.cs" />
+    <Compile Include="Utility\Converter\EnumBooleanConverter.cs" />
+    <Compile Include="Utility\IntValidator.cs" />
+    <Compile Include="Utility\Steelsa.Localization\EnumItemsConverter.cs" />
+    <Compile Include="Utility\Steelsa.Localization\LocalizationConverter.cs" />
+    <Compile Include="Utility\Steelsa\RegexValidator.cs" />
+    <Compile Include="Utility\ViewModelBase\DataGridRepairedBehavior.cs" />
+    <Compile Include="Utility\ViewModelBase\DBOperateViewModel.cs" />
+    <Compile Include="Utility\ImageExtension.cs" />
+    <Compile Include="Utility\ViewModelBase\ViewModelBase.cs" />
+    <Compile Include="Utility\Converter\YearToDateConverter.cs" />
+    <Compile Include="Content\EmployeeManagement\BaseInfoManagement\EmployeeManagerUI.xaml.cs">
+      <DependentUpon>EmployeeManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\VisualHelper.cs" />
+    <Compile Include="WorkforceManageDialog.xaml.cs">
+      <DependentUpon>WorkforceManageDialog.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AttendenceDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientRes\DialogDefaultLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientRes\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientRes\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientRes\Common.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientRes\ResourceCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientRes\Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\AttendenceManagement\SalaryDetailUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\AttendenceManagement\AttendenceManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\AttendenceManagement\AttendeceAnalysisUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\CreateTiaoXiuDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\CreateOverWorkDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\TiaoXiuManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\OverWorkManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\ReSignInManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\BusinessTripManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\CreateReSignInDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\CreateBusinessTripDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\CreateAskLeaveDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DocumentsManagement\AskLeaveManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\CardFillManagement\CardFillManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DepartmentManagement\DepartmentManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\DepartmentManagement\DepartmentProperty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\DepartmentSelectDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\EmployeeManagement\BaseSalarySet\BaseSalarySetUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\EmployeeManagement\OnJobManagement\PostTransferAddDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\FlyoutContentTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Report\DepartmentReportUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\Report\ReportUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\SystemArgsManagement\TaxManagerManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\SystemArgsManagement\BaseSalaryManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\SystemArgsManagement\AttArgsManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\SystemArgsManagement\SystemArgsManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\SystemUserManagement\PasswordEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\SystemUserManagement\SystemRoleManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\SystemUserManagement\SystemUserManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\VacationManagement\VacationSolutionAsignUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\VacationPlanSelectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\WkarDefSelectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\PostSelectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\EmployeeSelectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\EmployeeManagement\DormitoryManagement\DormitoryManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\EmployeeManagement\OnJobManagement\ExpireTipWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\EmployeeManagement\OnJobManagement\PostTransferManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\EmployeeManagement\OnJobManagement\OffJobManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\EmployeeManagement\OnJobManagement\OnJobManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\OperatingPostManagement\OperatingPostManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\WorkArrangement\WorkArrangementAsignUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\WorkArrangement\WorkArrangementDefineUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\TimeSpanPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\DBNavigationBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\MyDateTimePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\MainPageButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\ZoomImageControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\ZoomIconControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\EmployeeManagement\BaseInfoManagement\EmployeeEditDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Content\VacationManagement\VacationSolutionManagerUI.xaml.cs">
+      <DependentUpon>VacationSolutionManagerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\EmployeeManagement\BaseInfoManagement\EmployeeEditDialog.xaml.cs">
+      <DependentUpon>EmployeeEditDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="LoginDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientRes\DialogUtility.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\VacationManagement\VacationSolutionManagerUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\EmployeeManagement\BaseInfoManagement\EmployeeManagerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WorkforceManageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HrControl\HrControl.csproj">
+      <Project>{604d5d56-8405-47ad-b712-d7f63913bbda}</Project>
+      <Name>HrControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HRManagerConsole\HRManagerDataAccess.csproj">
+      <Project>{75a0b3e7-8511-4115-a451-af73584a06ab}</Project>
+      <Name>HRManagerDataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HRModel\HRModel.csproj">
+      <Project>{c877b05c-c5b7-4477-8528-cf267249d10e}</Project>
+      <Name>HRModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\home_32.png" />
+    <Resource Include="ClientRes\Image\user_edit.png" />
+    <Resource Include="logo.ico" />
+    <Resource Include="logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\widgets.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\table_multiple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\participation_rate.png" />
+    <Resource Include="ClientRes\Image\to_do_list_cheked_all.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\analysis.png" />
+    <Resource Include="ClientRes\Image\baobiao.png" />
+    <Resource Include="ClientRes\Image\quanxian.png" />
+    <Resource Include="ClientRes\Image\tixing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\baseinfo.png" />
+    <Resource Include="ClientRes\Image\client_account_template.png" />
+    <Resource Include="ClientRes\Image\cog.png" />
+    <Resource Include="ClientRes\Image\diagramm.png" />
+    <Resource Include="ClientRes\Image\disk.png" />
+    <Resource Include="ClientRes\Image\disk_multiple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\employeemove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\drive_user.png" />
+    <Resource Include="ClientRes\Image\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\kaoqinsetting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\gear_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\group_gear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\homepage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\house_two.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\gongshisetting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\investment_menu_quality.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\legend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\picture_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\reseller_account_template.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\session_idle_time.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\sort_descending.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\ssl_certificates.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\table_gear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\table_row_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\table_heatmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\vcard_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\table_replace.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\chart_curve.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\application_form_edit.png" />
+    <Resource Include="ClientRes\Image\building.png" />
+    <Resource Include="ClientRes\Image\date_go.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\walk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\10832.png" />
+    <Resource Include="ClientRes\Image\1093575.png" />
+    <Resource Include="ClientRes\Image\1093581.png" />
+    <Resource Include="ClientRes\Image\1093600.png" />
+    <Resource Include="ClientRes\Image\1093921.png" />
+    <Resource Include="ClientRes\Image\11383.png" />
+    <Resource Include="ClientRes\Image\11574.png" />
+    <Resource Include="ClientRes\Image\120.png" />
+    <Resource Include="ClientRes\Image\12013.png" />
+    <Resource Include="ClientRes\Image\12564.png" />
+    <Resource Include="ClientRes\Image\12913.png" />
+    <Resource Include="ClientRes\Image\12962.png" />
+    <Resource Include="ClientRes\Image\12965.png" />
+    <Resource Include="ClientRes\Image\13342.png" />
+    <Resource Include="ClientRes\Image\1420.png" />
+    <Resource Include="ClientRes\Image\144.png" />
+    <Resource Include="ClientRes\Image\1450.png" />
+    <Resource Include="ClientRes\Image\14956.png" />
+    <Resource Include="ClientRes\Image\1511.png" />
+    <Resource Include="ClientRes\Image\15951.png" />
+    <Resource Include="ClientRes\Image\168.png" />
+    <Resource Include="ClientRes\Image\1693.png" />
+    <Resource Include="ClientRes\Image\1736.png" />
+    <Resource Include="ClientRes\Image\219.png" />
+    <Resource Include="ClientRes\Image\2200.png" />
+    <Resource Include="ClientRes\Image\27103.png" />
+    <Resource Include="ClientRes\Image\27911.png" />
+    <Resource Include="ClientRes\Image\33216.png" />
+    <Resource Include="ClientRes\Image\3658.png" />
+    <Resource Include="ClientRes\Image\40432.png" />
+    <Resource Include="ClientRes\Image\4808.png" />
+    <Resource Include="ClientRes\Image\508424.png" />
+    <Resource Include="ClientRes\Image\5764.png" />
+    <Resource Include="ClientRes\Image\5767.png" />
+    <Resource Include="ClientRes\Image\5928.png" />
+    <Resource Include="ClientRes\Image\6280.png" />
+    <Resource Include="ClientRes\Image\6428.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\26043.png" />
+    <Resource Include="ClientRes\Image\26105.png" />
+    <Resource Include="ClientRes\Image\26157.png" />
+    <Resource Include="ClientRes\Image\26208.png" />
+    <Resource Include="ClientRes\Image\3993.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\Image\27697.png" />
+    <Resource Include="ClientRes\Image\29557.png" />
+    <Resource Include="ClientRes\Image\29650.png" />
+    <Resource Include="ClientRes\Image\31739.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\CrystalIcons256\539547.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539549.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539552.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539617.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539630.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539711.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539782.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539788.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539801.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539807.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539809.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539810.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539811.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539817.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539847.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539850.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539856.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539861.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539867.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539868.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539870.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539871.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539873.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539874.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539879.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539886.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539887.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539891.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539892.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539893.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539911.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539920.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539933.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539945.png" />
+    <Resource Include="ClientRes\CrystalIcons256\539960.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540031.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540032.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540034.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540036.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540043.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540046.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540049.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540052.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540056.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540057.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540061.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540068.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540069.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540070.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540078.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540082.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540086.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540090.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540091.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540093.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540094.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540095.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540098.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540099.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540100.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540101.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540107.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540111.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540115.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540116.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540117.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540118.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540119.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540120.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540121.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540142.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540143.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540144.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540145.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540146.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540147.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540148.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540149.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540150.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540151.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540152.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540155.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540157.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540160.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540165.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540166.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540167.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540169.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540170.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540171.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540173.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540198.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540209.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540211.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540212.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540218.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540223.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540225.png" />
+    <Resource Include="ClientRes\CrystalIcons256\540245.png" />
+    <Resource Include="ClientRes\CrystalIcons256\www.easyicon.net.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\CrystalIcons256\107.png" />
+    <Resource Include="ClientRes\CrystalIcons256\1082669.png" />
+    <Resource Include="ClientRes\CrystalIcons256\518079.png" />
+    <Resource Include="ClientRes\CrystalIcons256\564447.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\wallpaper-2984723.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientRes\wallpaper-2753250.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

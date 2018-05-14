@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:util="clr-namespace:HRManagerClient.Utility"
+                    xmlns:elsa="clr-namespace:Steelsa.Localization">
+    <util:EnumChStringConverter x:Key="EnumChStringConverter" />
+    <util:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+    <util:StringToDateTimeConverter x:Key="StringToDateTimeConverter" />
+    <util:HasValueToVisibilityConverter x:Key="HasValueToVisibilityConverter" />
+    <elsa:LocalizationConverter x:Key="LocalizationConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <util:VaccationYearToDateConverter x:Key="VaccationYearToDateConverter"/>
+</ResourceDictionary>

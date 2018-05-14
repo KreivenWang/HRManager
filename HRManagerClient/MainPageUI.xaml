@@ -1,0 +1,257 @@
+﻿<UserControl x:Class="HRManagerClient.MainPageUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+             RenderOptions.BitmapScalingMode="HighQuality">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="ConnectionLineBrush"
+                         Color="DarkGray" />
+        <Style TargetType="{x:Type cc:MainPageButton}"
+               BasedOn="{StaticResource {x:Type cc:MainPageButton}}">
+            <Setter Property="IconWidth"
+                    Value="48" />
+            <Setter Property="IconHeight"
+                    Value="48" />
+            <Setter Property="FontFamily"
+                    Value="微软雅黑"></Setter>
+            <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+        </Style>
+        <Style TargetType="{x:Type Path}">
+            <Setter Property="Data"
+                    Value="M 0 0 L60 0" />
+            <Setter Property="Stroke"
+                    Value="{StaticResource ConnectionLineBrush}" />
+            <Setter Property="StrokeThickness"
+                    Value="2" />
+            <Setter Property="StrokeDashArray"
+                    Value="3 2" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="3 0" />
+        </Style>
+        <Style TargetType="{x:Type ed:RegularPolygon}">
+            <Setter Property="Fill"
+                    Value="{StaticResource ConnectionLineBrush}" />
+            <Setter Property="Stroke"
+                    Value="Transparent" />
+            <Setter Property="Width"
+                    Value="10" />
+            <Setter Property="Height"
+                    Value="10" />
+            <Setter Property="Stretch"
+                    Value="Fill" />
+            <Setter Property="PointCount"
+                    Value="3" />
+            <Setter Property="InnerRadius"
+                    Value="1" />
+            <Setter Property="Margin"
+                    Value="-6 -2 0 0" />
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <RotateTransform Angle="90" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="Orientation"
+                    Value="Horizontal" />
+        </Style>
+    </UserControl.Resources>
+    <Border>
+        <Border.Background>
+            <ImageBrush ImageSource="ClientRes/wallpaper-2984723.png" />
+        </Border.Background>
+        <Viewbox>
+            <Border>
+                <Grid>
+                    <Canvas Name="addonLines">
+                        <Path Data="M 0 0 L0 93 "
+                              Canvas.Left="101"
+                              Canvas.Top="48.786"
+                              Margin="0"
+                              Height="83.56"
+                              Stretch="Fill" />
+                        <Path Data="M 0 0 L0 93 "
+                              Canvas.Left="101"
+                              Canvas.Top="215.531"
+                              Margin="0"
+                              Height="88.469"
+                              Stretch="Fill" />
+                        <Path Data="M 0 0 L0 20 "
+                              Canvas.Left="410"
+                              Canvas.Top="83.216"
+                              Margin="0"
+                              Height="15.846"
+                              Stretch="Fill" />
+                        <ed:RegularPolygon Canvas.Left="406"
+                                           Canvas.Top="81"
+                                           Margin="0">
+                            <ed:RegularPolygon.LayoutTransform>
+                                <RotateTransform Angle="0" />
+                            </ed:RegularPolygon.LayoutTransform>
+                        </ed:RegularPolygon>
+                        <Path Data="M 0 0 L0 20 "
+                              Canvas.Left="410"
+                              Canvas.Top="171.229"
+                              Margin="0"
+                              Height="15.846"
+                              Stretch="Fill" />
+                        <ed:RegularPolygon Canvas.Left="406"
+                                           Canvas.Top="181"
+                                           Margin="0">
+                            <ed:RegularPolygon.LayoutTransform>
+                                <RotateTransform Angle="180" />
+                            </ed:RegularPolygon.LayoutTransform>
+                        </ed:RegularPolygon>
+                    </Canvas>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Name="line0">
+                            <cc:MainPageButton ImageSource="ClientRes\Image\3658.png"
+                                               IsHitTestVisible="False">人事管理</cc:MainPageButton>
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton Command="{Binding DepartmentManageCommand}"
+                                               ImageSource="ClientRes\Image\12962.png">部门管理</cc:MainPageButton>
+                            <!--<Path Data="M 0 0 L100 0 "
+                              Stretch="Fill"
+                              Width="90"
+                              Margin="97 0 0 0" />-->
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes/CrystalIcons256/540152.png"
+                                               Command="{Binding OperatingPostManageCommand}">岗位管理</cc:MainPageButton>
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes/Image/10832.png"
+                                               Command="{Binding DormitoryManageCommand}">宿舍管理</cc:MainPageButton>
+
+
+                        </StackPanel>
+                        <StackPanel Name="line1">
+                            <cc:MainPageButton Visibility="Hidden" />
+                            <Grid>
+                                <Path Visibility="Hidden" />
+                                <Path HorizontalAlignment="Right"
+                                      Data="M 0 0 L 30 0" />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes\Image\26208.png"
+                                               Command="{Binding EmployeeManageCommand}">员工档案</cc:MainPageButton>
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes\CrystalIcons256\564447.png"
+                                               Command="{Binding PostTransferManageCommand}">基本薪资</cc:MainPageButton>
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes\Image\5764.png"
+                                               Command="{Binding OnJobManageCommand}">在职管理</cc:MainPageButton>
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes\Image\6428.png"
+                                               Command="{Binding PostTransferManageCommand}">岗位调动</cc:MainPageButton>
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes\CrystalIcons256\540149.png"
+                                               Command="{Binding OffJobManageCommand}">离职管理</cc:MainPageButton>
+                        </StackPanel>
+                        <StackPanel Name="line2"
+                                    Canvas.Top="100">
+                            <cc:MainPageButton ImageSource="ClientRes\Image\27697.png"
+                                               IsHitTestVisible="False">考勤管理</cc:MainPageButton>
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes\CrystalIcons256\539933.png"
+                                               Command="{Binding AsignWorkArrangeCommand}">排班管理</cc:MainPageButton>
+                            <Path />
+
+                            <cc:MainPageButton ImageSource="ClientRes\Image\1093581.png"
+                                               Command="{Binding VaccationSolutionCommand}">休假方案</cc:MainPageButton>
+                            <Path />
+                            <cc:MainPageButton ImageSource="ClientRes/Image/12013.png"
+                                               Content="补卡管理"
+                                               Command="{Binding CardFillRecordManageCommand}" />
+                            <Path Visibility="Hidden" />
+                            <cc:MainPageButton Visibility="Hidden" />
+                            <Path Visibility="Hidden" />
+                            <cc:MainPageButton ImageSource="ClientRes/Image/12564.png"
+                                               Content="报表查询"
+                                               Command="{Binding ReportEmployeeProfileCommand}" />
+                        </StackPanel>
+                        <StackPanel Name="line3">
+                            <cc:MainPageButton Visibility="Hidden" />
+                            <Grid>
+                                <Path Visibility="Hidden" />
+                                <Path HorizontalAlignment="Right"
+                                      Data="M 0 0 L 30 0" />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes/CrystalIcons256/518079.png"
+                                               Content="加班管理"
+                                               Command="{Binding OverWorkManageCommand}" />
+                            <Path />
+                            <cc:MainPageButton ImageSource="ClientRes\Image\1693.png"
+                                               Command="{Binding AskLeaveManageCommand}">请假管理</cc:MainPageButton>
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes/CrystalIcons256/107.png"
+                                               Content="出差管理"
+                                               Command="{Binding BusinessTripManageCommand}" />
+                            <Grid>
+                                <Path />
+                                <ed:RegularPolygon HorizontalAlignment="Right" />
+                            </Grid>
+                            <cc:MainPageButton ImageSource="ClientRes/CrystalIcons256/1082669.png"
+                                               Content="考勤分析"
+                                               Command="{Binding AttendanceAnalysisCommand}" />
+                        </StackPanel>
+                        <StackPanel Name="line4"
+                                    Canvas.Top="100">
+                            <cc:MainPageButton ImageSource="ClientRes\Image\15951.png"
+                                               Command="{Binding SysArgsManageCommand}">系统参数</cc:MainPageButton>
+                            <Path />
+                            <cc:MainPageButton ImageSource="ClientRes\Image\33216.png"
+                                               Command="{Binding AttArgManageCommand}">人事参数</cc:MainPageButton>
+                            <Path />
+                            <cc:MainPageButton ImageSource="ClientRes\Image\4808.png"
+                                               Command="{Binding AttArgManageCommand}">考勤参数</cc:MainPageButton>
+                            <Path />
+                            <cc:MainPageButton ImageSource="ClientRes\Image\12913.png"
+                                               Command="{Binding BaseSalaryManageCommand}">薪资公式</cc:MainPageButton>
+                            <Path />
+                            <cc:MainPageButton ImageSource="ClientRes\CrystalIcons256\539711.png">操作日志</cc:MainPageButton>
+                            <Path />
+                            <cc:MainPageButton ImageSource="ClientRes\Image\120.png"
+                                               Command="{Binding SysRoleManageCommand}">权限管理</cc:MainPageButton>
+                        </StackPanel>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </Viewbox>
+    </Border>
+</UserControl>

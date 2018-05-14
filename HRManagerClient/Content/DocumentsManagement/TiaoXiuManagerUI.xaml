@@ -1,0 +1,222 @@
+﻿<Control x:Class="HRManagerClient.TiaoXiuManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         xmlns:utility="clr-namespace:HRManagerClient.Utility"
+         Name="root">
+    <Control.Resources>
+        <local:ExpireRemindConverter x:Key="ExpireRemindConverter" />
+    </Control.Resources>
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <cc:DBNavigationBar RefreshCommand="{Binding RefreshCommand}"
+                                                SaveChangesCommand="{Binding UpdateItemCommand}"
+                                                AddItemCommand="{Binding AddItemCommand}"
+                                                RemoveItemCommand="{Binding RemoveItemCommand}"
+                                                AddText="添加调休记录"
+                                                RemoveText="删除调休记录"
+                                                DockPanel.Dock="Top" />
+                            <DataGrid ItemsSource="{Binding Model}"
+                                      AutoGenerateColumns="False"
+                                      CanUserDeleteRows="False"
+                                      CanUserAddRows="False"
+                                      SelectedValue="{Binding SelectedItem}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="调休单号"
+                                                        Width="100"
+                                                        Binding="{Binding TiaoXiuNo}" IsReadOnly="True"/>
+                                    <!--<DataGridTemplateColumn Header="部门"
+                                                            MinWidth="150"
+                                                            IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBox Margin="5"
+                                                             Controls:TextBoxHelper.Watermark="请选择部门"
+                                                             Text="{Binding Department.DepartName}"
+                                                             IsReadOnly="True" />
+                                                    <DockPanel LastChildFill="False"
+                                                               Margin="0 5 5 5">
+                                                        <Button Content="..."
+                                                                DockPanel.Dock="Right"
+                                                                Command="{Binding DataContext.SelectDpCommand, ElementName=root}"
+                                                                HorizontalAlignment="Right" />
+                                                        <Button Content=" x "
+                                                                DockPanel.Dock="Right"
+                                                                Command="{Binding DataContext.ClearDpCommand, ElementName=root}"
+                                                                HorizontalAlignment="Right" />
+                                                    </DockPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Department.DepartName}" VerticalAlignment="Center"></TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="岗位"
+                                                            MinWidth="150"
+                                                            IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBox Margin="5"
+                                                             Controls:TextBoxHelper.Watermark="请选择岗位"
+                                                             Text="{Binding OperatingPost.OperatingPostName}"
+                                                             IsReadOnly="True" />
+                                                    <DockPanel LastChildFill="False"
+                                                               Margin="0 5 5 5">
+                                                        <Button Content="..."
+                                                                DockPanel.Dock="Right"
+                                                                Command="{Binding DataContext.SelectOppCommand, ElementName=root}"
+                                                                HorizontalAlignment="Right" />
+                                                        <Button Content=" x "
+                                                                DockPanel.Dock="Right"
+                                                                Command="{Binding DataContext.ClearOppCommand, ElementName=root}"
+                                                                HorizontalAlignment="Right" />
+                                                    </DockPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding OperatingPost.OperatingPostName}"
+                                                           VerticalAlignment="Center"></TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>-->
+                                    <DataGridTemplateColumn Header="人员"
+                                                            MinWidth="150"
+                                                            IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBox Margin="5"
+                                                             Controls:TextBoxHelper.Watermark="请选择人员"
+                                                             IsReadOnly="True">
+                                                        <TextBox.Text>
+                                                            <MultiBinding StringFormat="{}[{0}]{1}">
+                                                                <Binding Path="Employee.EmployeeNO" />
+                                                                <Binding Path="Employee.EmployeeBaseInfo.EmployName" />
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                    <DockPanel LastChildFill="False"
+                                                               Margin="0 5 5 5">
+                                                        <Button Content="..."
+                                                                DockPanel.Dock="Right"
+                                                                Command="{Binding DataContext.SelectEpCommand, ElementName=root}"
+                                                                HorizontalAlignment="Right" />
+                                                        <Button Content=" x "
+                                                                DockPanel.Dock="Right"
+                                                                Command="{Binding DataContext.ClearEpCommand, ElementName=root}"
+                                                                HorizontalAlignment="Right" />
+                                                    </DockPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock VerticalAlignment="Center">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}[{0}]{1}">
+                                                            <Binding Path="Employee.EmployeeNO" />
+                                                            <Binding Path="Employee.EmployeeBaseInfo.EmployName" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="调休时间"
+                                                            Width="150"
+                                                            IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <cc:MyDateTimePicker Time="{Binding CurStartDateTimeStr, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}"
+                                                                     CustomFormat="yyyy-MM-dd HH:mm" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding CurStartDateTimeStr, StringFormat={}{0:yyyy-MM-dd HH:mm}, Converter={StaticResource StringToDateTimeConverter}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <!--<DataGridTemplateColumn Header="调休结束时间"
+                                                            Width="150"
+                                                            IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <cc:MyDateTimePicker Time="{Binding CurEndDateTimeStr, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}"
+                                                                     CustomFormat="yyyy-MM-dd HH:mm" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding CurEndDateTimeStr, StringFormat={}{0:yyyy-MM-dd HH:mm}, Converter={StaticResource StringToDateTimeConverter}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>-->
+                                    <DataGridTemplateColumn Header="被调时间"
+                                                            Width="150"
+                                                            IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <cc:MyDateTimePicker Time="{Binding TiaoXiuStartDateTimeStr, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}"
+                                                                     CustomFormat="yyyy-MM-dd HH:mm" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding TiaoXiuStartDateTimeStr, StringFormat={}{0:yyyy-MM-dd HH:mm}, Converter={StaticResource StringToDateTimeConverter}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <!--<DataGridTemplateColumn Header="被调结束时间"
+                                                            Width="150"
+                                                            IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <cc:MyDateTimePicker Time="{Binding TiaoXiuEndDateTimeStr, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}"
+                                                                     CustomFormat="yyyy-MM-dd HH:mm" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding TiaoXiuEndDateTimeStr, StringFormat={}{0:yyyy-MM-dd HH:mm}, Converter={StaticResource StringToDateTimeConverter}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>-->
+                                    <DataGridTemplateColumn Header="是否只调休半天"
+                                                            Width="150" IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsHalfDay}"
+                                                          IsEnabled="False" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="调休原因"
+                                                        Binding="{Binding Reason}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

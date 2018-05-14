@@ -1,0 +1,51 @@
+﻿<Controls:MetroWindow x:Class="HRManagerClient.DepartmentSelectDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:local="clr-namespace:HRManagerClient"
+                      xmlns:util="clr-namespace:HRManagerClient.Utility"
+                      xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+                      Owner="{x:Static local:MainViewModel.MainWindowHandler}"
+                      Title="请选择部门"
+                      SizeToContent="Width"
+                      Height="400"
+                      ResizeMode="CanResizeWithGrip"
+                      WindowStyle="ToolWindow"
+                      WindowStartupLocation="CenterOwner"
+                      ShowInTaskbar="False"
+                      Style="{StaticResource ToolbarDialogWindow}" Name="w">
+    <Window.Resources>
+        <HierarchicalDataTemplate ItemsSource="{Binding ChildrenDpvms}"
+                                  DataType="{x:Type local:DepartmentViewModel}">
+            <DockPanel>
+                <Button Content="选择"
+                        Command="{Binding SelectCommand, ElementName=w}"
+                        CommandParameter="{Binding}"
+                        DockPanel.Dock="Right" Margin="5 0"/>
+                <TextBlock Text="{Binding Model.DepartName}"
+                           FontSize="18"
+                           VerticalAlignment="Center" />
+            </DockPanel>
+            
+        </HierarchicalDataTemplate>
+    </Window.Resources>
+    <DockPanel>
+        <TreeView>
+            <TreeView.Resources>
+                <Style TargetType="{x:Type TreeViewItem}"
+                       BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                    <Setter Property="IsExpanded"
+                            Value="True" />
+                    <Setter Property="Margin"
+                            Value="10" />
+                </Style>
+            </TreeView.Resources>
+            <TreeViewItem Header="部门信息"
+                          FontSize="18"
+                          Foreground="Teal"
+                          ItemsSource="{Binding Dpvms}" >
+            </TreeViewItem>
+        </TreeView>
+    </DockPanel>
+</Controls:MetroWindow>

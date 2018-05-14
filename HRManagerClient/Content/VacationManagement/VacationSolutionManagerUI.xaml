@@ -1,0 +1,736 @@
+﻿<Control x:Class="HRManagerClient.VacationSolutionManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:util="clr-namespace:HRManagerClient.Utility"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" Name="root">
+    <Control.Resources>
+        <Style TargetType="{x:Type ColumnDefinition}">
+            <Setter Property="Width"
+                    Value="Auto" />
+        </Style>
+        <Style TargetType="{x:Type RowDefinition}">
+            <Setter Property="Height"
+                    Value="Auto" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}"
+               BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="TextAlignment"
+                    Value="Right" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="MinWidth"
+                    Value="200" />
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+        <Style TargetType="{x:Type ComboBox}"
+               BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="MinWidth"
+                    Value="120" />
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+        <Style TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+        <util:YearToDateConverter x:Key="YearToDateConverter" />
+        <Style x:Key="LockNavigateCalendarItem"
+               TargetType="{x:Type CalendarItem}">
+            <Setter Property="Margin"
+                    Value="0,3" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CalendarItem}">
+                        <ControlTemplate.Resources>
+                            <!-- 头部星期样式-->
+                            <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
+                                <TextBlock Text="{Binding}"
+                                           FontWeight="Bold"
+                                           Foreground="Teal"
+                                           FontSize="12"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="0,6,0,6"
+                                           Opacity="0.8" />
+                            </DataTemplate>
+                        </ControlTemplate.Resources>
+                        <Grid x:Name="PART_Root">
+                            <Grid.Resources>
+                                <SolidColorBrush x:Key="Ð"
+                                                 Color="#A5FFFFFF" />
+                            </Grid.Resources>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0"
+                                                             To="1"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             Storyboard.TargetName="PART_DisabledVisual" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}">
+                                <Grid>
+                                    <Grid.Resources>
+                                        <ControlTemplate x:Key="Ñ"
+                                                         TargetType="{x:Type Button}">
+                                            <Grid Cursor="Hand">
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup x:Name="CommonStates">
+                                                        <VisualState x:Name="Normal" />
+                                                        <VisualState x:Name="MouseOver">
+                                                            <Storyboard>
+                                                                <ColorAnimation Duration="0"
+                                                                                To="#FFC5C5BB"
+                                                                                Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                                                                Storyboard.TargetName="buttonContent" />
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Disabled">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Duration="0"
+                                                                                 To="0.5"
+                                                                                 Storyboard.TargetProperty="Opacity"
+                                                                                 Storyboard.TargetName="buttonContent" />
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                                <ContentPresenter x:Name="buttonContent"
+                                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                  Content="{TemplateBinding Content}"
+                                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                  Margin="1,4,1,9"
+                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                                    <TextElement.Foreground>
+                                                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}" />
+                                                    </TextElement.Foreground>
+                                                </ContentPresenter>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Grid.Resources>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.ColumnSpan="3"
+                                               Fill="{StaticResource AccentColorBrush}"
+                                               Margin="2"></Rectangle>
+                                    <Button x:Name="PART_PreviousButton"
+                                            Grid.Column="0"
+                                            Focusable="False"
+                                            HorizontalAlignment="Left"
+                                            Height="15"
+                                            Margin="8,0,0,0"
+                                            Grid.Row="0"
+                                            Width="20"
+                                            Visibility="Hidden">
+                                        <Grid>
+                                            <Path Data="M288.75,232.25L288.75,240.625 283,236.625z"
+                                                  Fill="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
+                                                  HorizontalAlignment="Center"
+                                                  Height="10"
+                                                  Stretch="Fill"
+                                                  VerticalAlignment="Center"
+                                                  Width="6" />
+                                        </Grid>
+                                    </Button>
+                                    <Button x:Name="PART_HeaderButton"
+                                            IsHitTestVisible="False"
+                                            Grid.Column="1"
+                                            Margin="0 4 0 0"
+                                            FontWeight="Bold"
+                                            Focusable="False"
+                                            FontSize="14"
+                                            HorizontalAlignment="Center"
+                                            Grid.Row="0"
+                                            VerticalAlignment="Center"
+                                            VerticalContentAlignment="Center">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Grid Cursor="Hand">
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Normal" />
+                                                            <VisualState x:Name="MouseOver">
+                                                                <Storyboard>
+                                                                    <ColorAnimation Duration="0"
+                                                                                    To="#FFC5C5BB"
+                                                                                    Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                                                                    Storyboard.TargetName="buttonContent" />
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Disabled">
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Duration="0"
+                                                                                     To="0.5"
+                                                                                     Storyboard.TargetProperty="Opacity"
+                                                                                     Storyboard.TargetName="buttonContent" />
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                    <ContentPresenter x:Name="buttonContent"
+                                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                      Content="{TemplateBinding Content}"
+                                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                      Margin="1,4,1,9"
+                                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                                        <TextElement.Foreground>
+                                                            <SolidColorBrush Color="AntiqueWhite" />
+                                                        </TextElement.Foreground>
+                                                    </ContentPresenter>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button x:Name="PART_NextButton"
+                                            Grid.Column="2"
+                                            Focusable="False"
+                                            HorizontalAlignment="Right"
+                                            Height="15"
+                                            Margin="0,0,8,0"
+                                            Grid.Row="0"
+                                            Width="20"
+                                            Visibility="Hidden">
+                                        <Grid>
+                                            <Path Data="M282.875,231.875L282.875,240.375 288.625,236z"
+                                                  Fill="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
+                                                  HorizontalAlignment="Center"
+                                                  Height="10"
+                                                  Stretch="Fill"
+                                                  VerticalAlignment="Center"
+                                                  Width="6" />
+                                        </Grid>
+                                    </Button>
+                                    <Grid x:Name="PART_MonthView"
+                                          Grid.ColumnSpan="3"
+                                          HorizontalAlignment="Center"
+                                          Margin="6,-1,6,6"
+                                          Grid.Row="1"
+                                          Visibility="Visible">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                    </Grid>
+                                    <Grid x:Name="PART_YearView"
+                                          Grid.ColumnSpan="3"
+                                          HorizontalAlignment="Center"
+                                          Margin="6,-3,7,6"
+                                          Grid.Row="1"
+                                          Visibility="Hidden">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <Rectangle x:Name="PART_DisabledVisual"
+                                       Fill="#A5FFFFFF"
+                                       Opacity="0"
+                                       RadiusY="2"
+                                       RadiusX="2"
+                                       Stretch="Fill"
+                                       Stroke="#A5FFFFFF"
+                                       StrokeThickness="1"
+                                       Visibility="Collapsed" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+                                <Setter Property="Visibility"
+                                        TargetName="PART_DisabledVisual"
+                                        Value="Visible" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding DisplayMode, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Calendar}}}"
+                                         Value="Year">
+                                <Setter Property="Visibility"
+                                        TargetName="PART_MonthView"
+                                        Value="Hidden" />
+                                <Setter Property="Visibility"
+                                        TargetName="PART_YearView"
+                                        Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding DisplayMode, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type Calendar}}}"
+                                         Value="Decade">
+                                <Setter Property="Visibility"
+                                        TargetName="PART_MonthView"
+                                        Value="Hidden" />
+                                <Setter Property="Visibility"
+                                        TargetName="PART_YearView"
+                                        Value="Visible" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="HideInactiveCalendarDayButton"
+               TargetType="{x:Type CalendarDayButton}"
+               BasedOn="{StaticResource {x:Type CalendarDayButton}}">
+            <Setter Property="MinWidth"
+                    Value="25" />
+            <Setter Property="MinHeight"
+                    Value="5" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Center" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Foreground"
+                    Value="Black" />
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="IsTabStop"
+                    Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CalendarDayButton}">
+                        <Grid x:Name="Grid"
+                              Margin="{TemplateBinding Margin}">
+                            <Border x:Name="Bg"
+                                    Background="{TemplateBinding Background}" />
+                            <ContentPresenter x:Name="NormalText"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="5,2,5,2"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              TextElement.Foreground="{TemplateBinding Foreground}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="Teal"></Setter>
+                                <Setter Property="Foreground"
+                                        Value="Wheat"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsToday"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="{StaticResource AccentColorBrush}"></Setter>
+                                <Setter Property="Foreground"
+                                        Value="AntiqueWhite"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="MediumTurquoise"></Setter>
+                                <Setter Property="Foreground"
+                                        Value="White"></Setter>
+                            </Trigger>
+                            <!--不可用日期-->
+                            <Trigger Property="IsBlackedOut"
+                                     Value="True">
+                                <Setter Property="Opacity"
+                                        Value="0.5"
+                                        TargetName="Grid"></Setter>
+                            </Trigger>
+                            <!--不在当月的日期-->
+                            <Trigger Property="IsInactive"
+                                     Value="True">
+                                <Setter Property="Visibility"
+                                        Value="Hidden"
+                                        TargetName="Grid"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+                                <Setter Property="Opacity"
+                                        Value="0.5"
+                                        TargetName="Grid"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Calendar}" BasedOn="{StaticResource {x:Type Calendar}}">
+            <Setter Property="Margin"
+                    Value="20 5" />
+            <Setter Property="CalendarItemStyle" Value="{StaticResource LockNavigateCalendarItem}"/>
+            <Setter Property="CalendarDayButtonStyle" Value="{StaticResource HideInactiveCalendarDayButton}"/>
+            <Setter Property="SelectionMode" Value="MultipleRange"/>
+            <Setter Property="FirstDayOfWeek" Value="Monday"/>
+            <Setter Property="DisplayMode" Value="Month"/>
+        </Style>
+    </Control.Resources>
+    <Control.Style>
+        <Style TargetType="Control">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <DockPanel Visibility="{Binding Mode=OneWay, Converter={StaticResource HasValueToVisibilityConverter}}"
+                                       DataContext="{Binding SelectedVSln}"
+                                       DockPanel.Dock="Right">
+                                <StackPanel DockPanel.Dock="Top"
+                                            Orientation="Horizontal">
+                                    <TextBlock Text="方案名称:" />
+                                    <TextBox Text="{Binding Model.PlanName}" />
+                                    <TextBlock Text="年份:" />
+                                    <ComboBox SelectedItem="{Binding Year}" 
+                                              ItemsSource="{Binding DataContext.YearsSelections, ElementName=root}"/>
+                                    <TextBlock Text="公用方案:" />
+                                    <CheckBox IsChecked="{Binding Model.IsPublicPlan}" />
+                                    <TextBlock Text="备注:" />
+                                    <TextBox Text="{Binding Model.Remark}" />
+                                    <Button Command="{Binding DataContext.SaveCommand, ElementName=root}"
+                                            Margin="5">保存</Button>
+                                </StackPanel>
+                                <Separator Margin="5"
+                                           Background="DarkGoldenrod"
+                                           DockPanel.Dock="Top" />
+                                <StackPanel DockPanel.Dock="Top"
+                                            Orientation="Horizontal">
+                                    <Controls:ToggleSwitch OnLabel="选中周六"
+                                                           OffLabel="选中周六"
+                                                           Margin="5"
+                                                           ThumbIndicatorBrush="MediumTurquoise"
+                                                           IsChecked="{Binding IsAllSaturdaySelected}" />
+                                    <Controls:ToggleSwitch OnLabel="选中周日"
+                                                           OffLabel="选中周日"
+                                                           Margin="5"
+                                                           ThumbIndicatorBrush="MediumTurquoise"
+                                                           IsChecked="{Binding IsAllSundaySelected}" />
+                                </StackPanel>
+                                <TextBlock DockPanel.Dock="Top"
+                                           Text="法定节假日选择: (在日期上 [按住Ctrl] 或 [按住鼠标左键拖动] 多选 )"
+                                           FontSize="18"
+                                           HorizontalAlignment="Left"></TextBlock>
+                                <ScrollViewer>
+                                    <Grid Name="calendarGrid">
+                                        <Grid.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background"
+                                                        Value="#3300AA55"></Setter>
+                                                <Setter Property="BorderBrush"
+                                                        Value="GreenYellow"></Setter>
+                                                <Setter Property="BorderThickness"
+                                                        Value="1"></Setter>
+                                                <Setter Property="Height"
+                                                        Value="150"></Setter>
+                                                <Setter Property="Width"
+                                                        Value="20"></Setter>
+                                                <Setter Property="HorizontalAlignment"
+                                                        Value="Right"></Setter>
+                                                <Setter Property="Margin"
+                                                        Value="0 30 30 0"></Setter>
+                                                <Setter Property="IsHitTestVisible"
+                                                        Value="False"></Setter>
+                                            </Style>
+                                        </Grid.Resources>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Row="0"
+                                              Grid.Column="0">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=1}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="1">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="1"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="0"
+                                              Grid.Column="1">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=2}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="2">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="2"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="0"
+                                              Grid.Column="2">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay, Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=3}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="3">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="3"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="0"
+                                              Grid.Column="3">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=4}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="4">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="4"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="1"
+                                              Grid.Column="0">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=5}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="5">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="5"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="1"
+                                              Grid.Column="1">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=6}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="6">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="6"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="1"
+                                              Grid.Column="2">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=7}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="7">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="7"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="1"
+                                              Grid.Column="3">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=8}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="8">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="8"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="2"
+                                              Grid.Column="0">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=9}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="9">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="9"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="2"
+                                              Grid.Column="1">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=10}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="10">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="10"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="2"
+                                              Grid.Column="2">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=11}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="11">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="11"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="2"
+                                              Grid.Column="3">
+                                            <Calendar DisplayDate="{Binding Model.Year, Mode=OneWay,Converter={StaticResource VaccationYearToDateConverter}, ConverterParameter=12}"
+                                                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                                                      PreviewMouseUp="CalendarItem_OnPreviewMouseUp"
+                                                      Tag="12">
+                                            </Calendar>
+                                            <Border Margin="0 30 30 0"
+                                                    Visibility="{Binding AllSundaySelectedVisibility}" />
+                                            <Border Margin="0 30 54 0"
+                                                    Visibility="{Binding AllSaturdaySelectedVisibility}" />
+                                            <Button Command="{Binding DataContext.ClearSelectionsCommand, ElementName=root}"
+                                                    CommandParameter="12"
+                                                    Content="清除"
+                                                    Margin="24 12"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"></Button>
+                                        </Grid>
+
+                                    </Grid>
+                                </ScrollViewer>
+                            </DockPanel>
+                            <Rectangle Width="2" Fill="Teal" DockPanel.Dock="Right" Margin="5 0"></Rectangle>
+                            <DockPanel >
+                                <cc:DBNavigationBar DockPanel.Dock="Top"
+                                                    AddText="添加假期方案"
+                                                    RemoveText="删除假期方案"
+                                                    AddItemCommand="{Binding AddItemCommand}"
+                                                    RemoveItemCommand="{Binding RemoveItemCommand}"/>
+                                <DataGrid AutoGenerateColumns="False"
+                                          CanUserAddRows="False"
+                                          ItemsSource="{Binding Model}"
+                                          SelectedItem="{Binding SelectedItem}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding PlanName, Mode=OneWay}"
+                                                            IsReadOnly="True"
+                                                            Header="方案名称"
+                                                            Width="180"></DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Year}"
+                                                            IsReadOnly="True"
+                                                            Header="年份"></DataGridTextColumn>
+                                        <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                                EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                                Header="公用方案"
+                                                                IsReadOnly="True"
+                                                                Binding="{Binding IsPublicPlan}" />
+                                        <DataGridTextColumn Binding="{Binding Remark, Mode=OneWay}"
+                                                            Header="备注"
+                                                            Width="100"
+                                                            IsReadOnly="True" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                            
+                            
+                        </DockPanel>
+                        
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

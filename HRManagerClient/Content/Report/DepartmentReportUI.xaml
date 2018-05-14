@@ -1,0 +1,40 @@
+﻿<Control x:Class="HRManagerClient.DepartmentReportUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" Name="root"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         xmlns:utility="clr-namespace:HRManagerClient.Utility">
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <StackPanel Margin="5" DockPanel.Dock="Top" Orientation="Horizontal">
+                                <TextBox Margin="0 5"
+                                         Text="{Binding FilterDepartmentName, UpdateSourceTrigger=PropertyChanged}"
+                                         Controls:TextBoxHelper.Watermark="筛选部门名称"
+                                         Controls:TextBoxHelper.UseFloatingWatermark="True"
+                                         Controls:TextBoxHelper.ClearTextButton="True"></TextBox>
+                                <Button Command="{Binding SelectDpCommand}"
+                                        Margin="0 5">选择部门</Button>
+                                <Button Command="{Binding ExportCsvCommand}"
+                                        CommandParameter="{Binding ElementName=grid}"
+                                        Margin="5">导出csv</Button>
+                            </StackPanel>
+                            <DataGrid ItemsSource="{Binding FiltedItems}"
+                                      AutoGenerateColumns="True"
+                                      CanUserDeleteRows="False"
+                                      AutoGeneratingColumn="DataGrid_OnAutoGeneratingColumn"
+                                      CanUserAddRows="False" Name="grid" />
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>
+

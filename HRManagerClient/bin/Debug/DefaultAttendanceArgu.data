@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<AttendanceArgu xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BeLateMinuteLimit>0</BeLateMinuteLimit>
+  <AbsenteeismMinuteLimit>0</AbsenteeismMinuteLimit>
+  <EarlyLeftMinuteLimit>0</EarlyLeftMinuteLimit>
+</AttendanceArgu>

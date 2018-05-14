@@ -1,0 +1,97 @@
+﻿<Control x:Class="HRManagerClient.TaxManagerManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         Name="root">
+    <Control.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/HRManagerClient;component/ClientRes/DialogDefaultLayout.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type Controls:NumericUpDown}"
+                   BasedOn="{StaticResource {x:Type Controls:NumericUpDown}}">
+                <Setter Property="MinWidth"
+                        Value="180" />
+                <Setter Property="Margin"
+                        Value="5" />
+                <Setter Property="Minimum" Value="0"></Setter>
+                <Setter Property="Maximum" Value="99999"></Setter>
+                <Setter Property="HasDecimals" Value="True"></Setter>
+                <Setter Property="InterceptMouseWheel" Value="True"></Setter>
+                <Setter Property="Interval" Value="5"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </Control.Resources>
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="住房公积金个人比例" Grid.Row="0" Grid.Column="0"></TextBlock>
+                                <TextBlock Text="起征点"
+                                           Grid.Row="1"
+                                           Grid.Column="0"></TextBlock>
+                                <TextBlock Text="分割线"
+                                           Grid.Row="2"
+                                           Grid.Column="0"></TextBlock>
+                                <TextBlock Text="大于分割线的税率"
+                                           Grid.Row="3"
+                                           Grid.Column="0"></TextBlock>
+                                <TextBlock Text="低于分割线的税率"
+                                           Grid.Row="4"
+                                           Grid.Column="0"></TextBlock>
+                                <TextBlock Text="固定值"
+                                           Grid.Row="5"
+                                           Grid.Column="0"></TextBlock>
+                               
+                                <Controls:NumericUpDown Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        Value="{Binding Arg.PresonRatio}"></Controls:NumericUpDown>
+                                <Controls:NumericUpDown Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        Value="{Binding Arg.Threshold}"></Controls:NumericUpDown>
+                                <Controls:NumericUpDown Grid.Row="2"
+                                                        Grid.Column="1"
+                                                        Value="{Binding Arg.CutOffRule}"></Controls:NumericUpDown>
+                                <Controls:NumericUpDown Grid.Row="3"
+                                                        Grid.Column="1"
+                                                        Value="{Binding Arg.OverCutOffRuleRatio}"></Controls:NumericUpDown>
+                                <Controls:NumericUpDown Grid.Row="4"
+                                                        Grid.Column="1"
+                                                        Value="{Binding Arg.UnderCutOffRuleRatio}"></Controls:NumericUpDown>
+                                <Controls:NumericUpDown Grid.Row="5"
+                                                        Grid.Column="1"
+                                                        Value="{Binding Arg.FixedValue}"></Controls:NumericUpDown>
+
+                                <Button Margin="5"
+                                        Command="{Binding SaveCommand}"
+                                        Grid.Row="6"
+                                        Grid.Column="0">保存修改</Button>
+                            </Grid>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

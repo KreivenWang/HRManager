@@ -1,0 +1,150 @@
+﻿<Control x:Class="HRManagerClient.SystemRoleManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         Name="root">
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        DockPanel.Dock="Top"
+                                        IsEnabled="{Binding CanModify}">
+                                <cc:DBNavigationBar DockPanel.Dock="Top"
+                                                    AddText="创建记录"
+                                                    RemoveText="删除记录"
+                                                    AddItemCommand="{Binding CreateItemCommand}"
+                                                    RemoveItemCommand="{Binding RemoveItemCommand}"
+                                                    RefreshCommand="{Binding RefreshCommand}"
+                                                    SaveChangesCommand="{Binding UpdateItemCommand}" />
+                                <Button Command="{Binding CreateSubmitCommand}" Margin="5">创建完成</Button>
+                            </StackPanel>
+                            <DataGrid ItemsSource="{Binding Model}"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      SelectedValue="{Binding SelectedItem}" 
+                                      AutoGeneratingColumn="DataGrid_OnAutoGeneratingColumn"
+                                      LoadingRow="DataGrid_OnLoadingRow"
+                                      >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="角色名"
+                                                        Binding="{Binding Name}"
+                                                        Width="150" />
+                                    <DataGridTemplateColumn Header="创建时间" Width="150" IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <cc:MyDateTimePicker Time="{Binding CreateTime, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}"
+                                                                     CustomFormat="yyyy-MM-dd HH:mm" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding CreateTime, Converter={StaticResource StringToDateTimeConverter}, StringFormat={}{0:yyyy-MM-dd HH:mm}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="创建人"
+                                                        Binding="{Binding Creator}" IsReadOnly="True"/>
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="启用状态"
+                                                            Binding="{Binding IsActive}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许补卡管理"
+                                                            Binding="{Binding Enabled_CardFill}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许部门管理"
+                                                            Binding="{Binding Enabled_Department}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许请假管理"
+                                                            Binding="{Binding Enabled_AskLeave}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许出差管理"
+                                                            Binding="{Binding Enabled_BusinessTrip}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许补签管理"
+                                                            Binding="{Binding Enabled_ReSignIn}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许加班管理"
+                                                            Binding="{Binding Enabled_OverWork}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许员工信息管理"
+                                                            Binding="{Binding Enabled_EmployeeInfo}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许在职管理"
+                                                            Binding="{Binding Enabled_EmployeeOnJob}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许离职管理"
+                                                            Binding="{Binding Enabled_EmployeeOffJob}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许员工调动管理"
+                                                            Binding="{Binding Enabled_EmployeeTransfer}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许宿舍管理"
+                                                            Binding="{Binding Enabled_Dormitory}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许岗位管理"
+                                                            Binding="{Binding Enabled_Post}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许考勤参数设置"
+                                                            Binding="{Binding Enabled_AttArgs}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许薪资参数设置"
+                                                            Binding="{Binding Enabled_BaseSalaryArgs}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许系统参数设置"
+                                                            Binding="{Binding Enabled_SystemArgs}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许休假方案管理"
+                                                            Binding="{Binding Enabled_VacationPlan}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许休假分配"
+                                                            Binding="{Binding Enabled_VacationAsign}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许排班定义"
+                                                            Binding="{Binding Enabled_WorkArrangementDefine}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许排班管理"
+                                                            Binding="{Binding Enabled_WorkArrangementAsign}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许系统角色设置"
+                                                            Binding="{Binding Enabled_SystemRole}" />
+                                    <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Header="允许系统用户设置"
+                                                            Binding="{Binding Enabled_SystemUser}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

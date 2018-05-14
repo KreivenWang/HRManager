@@ -1,0 +1,101 @@
+﻿<Controls:MetroWindow x:Class="HRManagerClient.EmployeeSelectDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:local="clr-namespace:HRManagerClient"
+                      xmlns:util="clr-namespace:HRManagerClient.Utility"
+                      xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+                      Owner="{x:Static local:MainViewModel.MainWindowHandler}"
+                      Title="请选择员工(双击选定)"
+                      SizeToContent="Width"
+                      Height="300"
+                      ResizeMode="CanResizeWithGrip"
+                      WindowStyle="ToolWindow"
+                      WindowStartupLocation="CenterOwner"
+                      Style="{StaticResource ToolbarDialogWindow}"
+                      ShowInTaskbar="False"
+                      Name="w">
+    <DockPanel>
+        <StackPanel>
+            <Label Content="筛选条件:" Margin="5"/>
+            <BulletDecorator Margin="5">
+                <BulletDecorator.Bullet>
+                    <Label Content="工号:" />
+                </BulletDecorator.Bullet>
+                <TextBox Text="{Binding WorkNumFilterText, UpdateSourceTrigger=PropertyChanged}" />
+            </BulletDecorator>
+            <BulletDecorator Margin="5"  >
+                <BulletDecorator.Bullet>
+                    <Label Content="姓名:" />
+                </BulletDecorator.Bullet>
+                <TextBox Text="{Binding NameFilterText, UpdateSourceTrigger=PropertyChanged}" />
+            </BulletDecorator>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="性别:" />
+                <RadioButton IsChecked="{Binding SexFilter, Converter={StaticResource EnumBooleanConverter}, ConverterParameter={x:Static hrmodel:SexEnum.Unknown}}"
+                             Content="全部"
+                             GroupName="sexGroup"
+                             Margin="5 0 5 3" />
+                <RadioButton IsChecked="{Binding SexFilter, Converter={StaticResource EnumBooleanConverter}, ConverterParameter={x:Static hrmodel:SexEnum.Male}}"
+                             Content="男"
+                             GroupName="sexGroup"
+                             Margin="5 0 5 3" />
+                <RadioButton IsChecked="{Binding SexFilter, Converter={StaticResource EnumBooleanConverter}, ConverterParameter={x:Static hrmodel:SexEnum.Female}}"
+                             Content="女"
+                             GroupName="sexGroup"
+                             Margin="5 0 5 3" />
+            </StackPanel>
+            <BulletDecorator Margin="5">
+                <BulletDecorator.Bullet>
+                    <Label Content="部门:" />
+                </BulletDecorator.Bullet>
+                <DockPanel IsEnabled="{Binding IsDpFilterEditable}">
+                    <Button DockPanel.Dock="Right"
+                            Content="..."
+                            Click="SelectDp_Click" />
+                    <Button DockPanel.Dock="Right"
+                            Content=" X "
+                            Click="ClearSelectedDp_Click" />
+                    <TextBox Text="{Binding DpFilter.DepartName}"
+                             IsReadOnly="True" />
+
+                </DockPanel>
+            </BulletDecorator>
+        </StackPanel>
+        <DockPanel>
+            <Label Content="员工列表:"
+                   DockPanel.Dock="Top"
+                   Margin="0 5" />
+            <ListView ItemsSource="{Binding FiltedItems}" Margin="5" BorderThickness="1" SelectedItem="{Binding SelectedEp}" MouseDoubleClick="ListView_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="工号"
+                                        DisplayMemberBinding="{Binding EmployeeNO}" Width="75"></GridViewColumn>
+                        <GridViewColumn Header="姓名" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding EmployeeBaseInfo.EmployName}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="部门">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Department.DepartName}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="性别">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding EmployeeBaseInfo.Sex, Converter={StaticResource EnumChStringConverter}}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+    </DockPanel>
+</Controls:MetroWindow>

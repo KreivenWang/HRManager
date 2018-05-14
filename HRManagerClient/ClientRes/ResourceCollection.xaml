@@ -1,0 +1,79 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModel="clr-namespace:Steelsa.ViewModel">
+    <ResourceDictionary.MergedDictionaries>
+        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+        <!--Accent and AppTheme setting-->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Teal.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+
+        <ResourceDictionary Source="Common.xaml" />
+        <ResourceDictionary Source="DialogUtility.xaml" />
+        <ResourceDictionary Source="Window.xaml" />
+        <ResourceDictionary Source="Icons.xaml" />
+        <ResourceDictionary Source="Converters.xaml" />
+
+        <ResourceDictionary Source="/HRManagerClient;component/CustomControls/MyDateTimePicker.xaml" />
+        <ResourceDictionary Source="/HRManagerClient;component/CustomControls/ZoomIconControl.xaml" />
+        <ResourceDictionary Source="/HRManagerClient;component/CustomControls/ZoomImageControl.xaml" />
+        <ResourceDictionary Source="/HRManagerClient;component/CustomControls/MainPageButton.xaml" />
+        <ResourceDictionary Source="/HRManagerClient;component/CustomControls/DBNavigationBar.xaml" />
+        <ResourceDictionary Source="/HRManagerClient;component/CustomControls/TimeSpanPicker.xaml" />
+
+        <ResourceDictionary Source="/HRManagerClient;component/Content/FlyoutContentTemplate.xaml" />
+
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="{x:Type DataGrid}"
+           BasedOn="{StaticResource AzureDataGrid}">
+        <!--<Setter Property="ScrollViewer.CanContentScroll"
+                Value="true" />
+        <Setter Property="ScrollViewer.PanningMode"
+                Value="Both" />-->
+        <Setter Property="EnableRowVirtualization"
+                Value="True"></Setter>
+        <Setter Property="EnableColumnVirtualization"
+                Value="True"></Setter>
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode"
+                Value="Recycling"></Setter>
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+                Value="True"></Setter>
+        <Setter Property="HorizontalGridLinesBrush"
+                Value="PaleTurquoise" />
+        <Setter Property="VerticalGridLinesBrush"
+                Value="PaleTurquoise" />
+        <Setter Property="GridLinesVisibility"
+                Value="Horizontal" />
+        <Setter Property="viewModel:DataGridRepairedBehavior.LoadingRowEventToCommand"
+                Value="{Binding LoadingRowEventToCommand}"></Setter>
+        <Setter Property="HeadersVisibility"
+                Value="All"></Setter>
+        <Setter Property="CanUserDeleteRows"
+                Value="False"></Setter>
+        <Setter Property="CanUserAddRows"
+                Value="False"></Setter>
+        <Setter Property="SelectionMode" Value="Single"></Setter>
+        <Setter Property="RowHeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="5 1 5 0" 
+                                   FontFamily="Consolas"></TextBlock>
+                        <Rectangle Height="1"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Bottom"
+                                   Fill="DodgerBlue"></Rectangle>
+                    </Grid>
+
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

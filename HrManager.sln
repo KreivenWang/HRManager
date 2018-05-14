@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRModel", "HRModel\HRModel.csproj", "{C877B05C-C5B7-4477-8528-CF267249D10E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRManagerDataAccess", "HRManagerConsole\HRManagerDataAccess.csproj", "{75A0B3E7-8511-4115-A451-AF73584A06AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HrControl", "HrControl\HrControl.csproj", "{604D5D56-8405-47AD-B712-D7F63913BBDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRManagerClient", "HRManagerClient\HRManagerClient.csproj", "{048C4523-2A54-48DD-9044-2F6617902935}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C877B05C-C5B7-4477-8528-CF267249D10E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C877B05C-C5B7-4477-8528-CF267249D10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C877B05C-C5B7-4477-8528-CF267249D10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C877B05C-C5B7-4477-8528-CF267249D10E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75A0B3E7-8511-4115-A451-AF73584A06AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75A0B3E7-8511-4115-A451-AF73584A06AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75A0B3E7-8511-4115-A451-AF73584A06AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75A0B3E7-8511-4115-A451-AF73584A06AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{604D5D56-8405-47AD-B712-D7F63913BBDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{604D5D56-8405-47AD-B712-D7F63913BBDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{604D5D56-8405-47AD-B712-D7F63913BBDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{604D5D56-8405-47AD-B712-D7F63913BBDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048C4523-2A54-48DD-9044-2F6617902935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048C4523-2A54-48DD-9044-2F6617902935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048C4523-2A54-48DD-9044-2F6617902935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048C4523-2A54-48DD-9044-2F6617902935}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

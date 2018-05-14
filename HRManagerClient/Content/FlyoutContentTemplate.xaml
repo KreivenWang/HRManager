@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HRManagerClient.Content"
+                    xmlns:hrManagerClient="clr-namespace:HRManagerClient">
+    <DataTemplate x:Key="DpSelectTemplate" 
+                  DataType="{x:Type hrManagerClient:DpSelectVM}">
+        <DockPanel>
+            <DockPanel.Resources>
+                <HierarchicalDataTemplate ItemsSource="{Binding ChildrenDpvms}"
+                                          DataType="{x:Type hrManagerClient:DepartmentViewModel}">
+                    <DockPanel>
+                        <Button Content="选择"
+                                Command="{Binding DataContext.SelectCommand, ElementName=tv}"
+                                CommandParameter="{Binding}"
+                                DockPanel.Dock="Right"
+                                Margin="5 0" />
+                        <TextBlock Text="{Binding Model.DepartName}"
+                                   FontSize="18"
+                                   VerticalAlignment="Center" />
+                    </DockPanel>
+
+                </HierarchicalDataTemplate>
+            </DockPanel.Resources>
+            <TreeView Name="tv">
+                <TreeView.Resources>
+                    <Style TargetType="{x:Type TreeViewItem}"
+                           BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                        <Setter Property="IsExpanded"
+                                Value="True" />
+                        <Setter Property="Margin"
+                                Value="10" />
+                    </Style>
+                </TreeView.Resources>
+                <TreeViewItem Header="部门信息"
+                              FontSize="18"
+                              Foreground="Teal"
+                              ItemsSource="{Binding Dpvms}">
+                </TreeViewItem>
+            </TreeView>
+        </DockPanel>
+    </DataTemplate>
+</ResourceDictionary>

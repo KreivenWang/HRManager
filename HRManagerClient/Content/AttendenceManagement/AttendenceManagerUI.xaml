@@ -1,0 +1,55 @@
+﻿<Control x:Class="HRManagerClient.AttendenceManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         Name="root">
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        DockPanel.Dock="Top"
+                                        IsEnabled="{Binding CanModify}">
+                                <TextBlock Text="时间查询:" VerticalAlignment="Center"></TextBlock>
+                                <DatePicker SelectedDate="{Binding StartTime}" Margin="5"/>
+                                <TextBlock Text="至"
+                                           VerticalAlignment="Center" />
+                                <DatePicker SelectedDate="{Binding EndTime}"
+                                            Margin="5" />
+                                <Button Command="{Binding FilteCommand}"
+                                        Margin="5">查询</Button>
+                                <Button Command="{Binding ClearFilteCommand}"
+                                        Margin="5">清除查询</Button>
+                            </StackPanel>
+                            <DataGrid ItemsSource="{Binding FiltedItems}"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      SelectedValue="{Binding SelectedItem}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="打卡时间"
+                                                        Width="150"
+                                                        Binding="{Binding RecordTime, Converter={StaticResource StringToDateTimeConverter}, StringFormat=yyyy-MM-dd HH:mm:ss}"
+                                                        IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="员工工号"
+                                                        Width="150"
+                                                        Binding="{Binding EmployeeNo}"
+                                                        IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="员工姓名"
+                                                        Width="150"
+                                                        Binding="{Binding EmployeeName}"
+                                                        IsReadOnly="True" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

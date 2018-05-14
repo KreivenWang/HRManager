@@ -1,0 +1,101 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:cc="clr-namespace:HRManagerClient.CustomControls">
+    <Style TargetType="{x:Type cc:ZoomIconControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:ZoomIconControl}">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid>
+                            <Rectangle Fill="{Binding Foreground, ElementName=textblock}"
+                                       Width="{TemplateBinding IconWidth}"
+                                       Height="{TemplateBinding IconHeight}"
+                                       Margin="5 0 5 2"
+                                       x:Name="rect">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+                                                 Visual="{Binding Visual, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                                </Rectangle.OpacityMask>
+                                <Rectangle.LayoutTransform>
+                                    <ScaleTransform />
+                                </Rectangle.LayoutTransform>
+                            </Rectangle>
+                            <Rectangle x:Name="coverRect"
+                                       RenderTransformOrigin="0.5,0.5"
+                                       Opacity="0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{Binding ElementName=rect}" />
+                                </Rectangle.Fill>
+                                <Rectangle.RenderTransform>
+                                    <ScaleTransform />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                        </Grid>
+                        <TextBlock Text="{TemplateBinding Text}"
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center" 
+                                   x:Name="textblock"/>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="rect"
+                                                         Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                                                         To="1.2"
+                                                         Duration="0:0:0.2" />
+
+                                        <DoubleAnimation Storyboard.TargetName="rect"
+                                                         Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                                                         To="1.2"
+                                                         Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="rect"
+                                                         Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                                                         To="1"
+                                                         Duration="0:0:0.2" />
+
+                                        <DoubleAnimation Storyboard.TargetName="rect"
+                                                         Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                                                         To="1"
+                                                         Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <EventTrigger RoutedEvent="PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="coverRect"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     From="1"
+                                                     To="0"
+                                                     Duration="0:0:0.5" />
+                                    <DoubleAnimation Storyboard.TargetName="coverRect"
+                                                     Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                     From="1"
+                                                     To="1.2"
+                                                     FillBehavior="Stop"
+                                                     Duration="0:0:0.5" />
+                                    <DoubleAnimation Storyboard.TargetName="coverRect"
+                                                     Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                     From="1"
+                                                     To="1.2"
+                                                     FillBehavior="Stop"
+                                                     Duration="0:0:0.5" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

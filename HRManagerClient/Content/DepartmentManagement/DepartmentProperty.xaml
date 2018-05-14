@@ -1,0 +1,96 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HRManagerClient">
+    <DataTemplate x:Key="DpPropTemplate">
+        <Border Padding="15">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Center" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                    </Style>
+                    <Style TargetType="{x:Type Label}"
+                           BasedOn="{StaticResource {x:Type Label}}">
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Left" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                        <Setter Property="Padding"
+                                Value="0" />
+                        <Setter Property="VerticalContentAlignment"
+                                Value="Center" />
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}"
+                           BasedOn="{StaticResource {x:Type TextBox}}">
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                        <Setter Property="TextWrapping"
+                                Value="Wrap" />
+                        <Setter Property="Width"
+                                Value="150" />
+                    </Style>
+                    <Style TargetType="{x:Type ComboBox}"
+                           BasedOn="{StaticResource {x:Type ComboBox}}">
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="部门编号:" />
+                <TextBlock Text="部门名称:"
+                           Grid.Row="1" />
+                <TextBlock Text="上级部门:"
+                           Grid.Row="2" />
+                <TextBlock Text="描述:"
+                           Grid.Row="3" />
+                <TextBlock Text="状态:"
+                           Grid.Row="4" />
+                <TextBlock Text="部门员工数量:"
+                           Grid.Row="5" />
+                <TextBox Grid.Column="1"
+                         Text="{Binding Model.DepartNo}" />
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         Text="{Binding Model.DepartName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="2"
+                         Grid.Column="1"
+                         Text="{Binding Model.ParentDepartment.DepartName}"
+                         IsEnabled="False" />
+                <TextBox Grid.Row="3"
+                         Grid.Column="1"
+                         Text="{Binding Model.DepartDesn, UpdateSourceTrigger=PropertyChanged}"
+                         VerticalScrollBarVisibility="Visible"
+                         AcceptsReturn="True" />
+                <CheckBox Margin="5"
+                          Content="启用"
+                          IsChecked="{Binding IsOnDuty}"
+                          Grid.Row="4"
+                          Grid.Column="1" />
+                <Label Content="{Binding Model.Employees.Count}"
+                       Grid.Row="5"
+                       Grid.Column="1"/>
+            </Grid>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>

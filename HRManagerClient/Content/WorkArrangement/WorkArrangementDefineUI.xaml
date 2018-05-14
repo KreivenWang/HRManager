@@ -1,0 +1,177 @@
+﻿<Control x:Class="HRManagerClient.WorkArrangementDefineUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+         Name="root"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         xmlns:utility="clr-namespace:HRManagerClient.Utility">
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <cc:DBNavigationBar DockPanel.Dock="Top"
+                                                AddText="添加班次定义"
+                                                RemoveText="删除班次定义"
+                                                AddItemCommand="{Binding AddItemCommand}"
+                                                RemoveItemCommand="{Binding RemoveItemCommand}"
+                                                RefreshCommand="{Binding RefreshCommand}"
+                                                SaveChangesCommand="{Binding UpdateItemCommand}" />
+                            <DataGrid ItemsSource="{Binding Model}"
+                                      SelectedItem="{Binding SelectedItem}"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False">
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Margin"
+                                                Value="6" />
+                                        <Setter Property="VerticalAlignment"
+                                                Value="Center" />
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="班次编码"
+                                                        SortMemberPath="ArrangeWorkNoForSort">
+                                        <DataGridTextColumn.Binding>
+                                            <Binding Path="ArrangeWorkNo"
+                                                     UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <utility:IntValidator />
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </DataGridTextColumn.Binding>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="班次名称"
+                                                        Binding="{Binding WorkName}" />
+                                    <DataGridTextColumn Header="班次分组"
+                                                        Binding="{Binding WorkGroup}" />
+                                    <DataGridTemplateColumn Header="坐班类型">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <ComboBox SelectedValue="{Binding SpanType}"
+                                                          ItemsSource="{Binding DataContext.SpanTypeItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WorkArrangementDefineUI}}}"
+                                                          SelectedValuePath="SelectedValue"
+                                                          DisplayMemberPath="DisplayMember"></ComboBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding SpanType, Converter={StaticResource LocalizationConverter}}"></TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="上班正点">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <cc:MyDateTimePicker Time="{Binding OnDutyTime, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding OnDutyTime, Converter={StaticResource StringToDateTimeConverter}, StringFormat={}{0:HH:mm}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+<!--                                    <DataGridTemplateColumn Header="上班下限">-->
+<!--                                        <DataGridTemplateColumn.CellEditingTemplate>-->
+<!--                                            <DataTemplate>-->
+<!--                                                <cc:MyDateTimePicker Time="{Binding OnDutyTimeLowerLimit, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}" />-->
+<!--                                            </DataTemplate>-->
+<!--                                        </DataGridTemplateColumn.CellEditingTemplate>-->
+<!--                                        <DataGridTemplateColumn.CellTemplate>-->
+<!--                                            <DataTemplate>-->
+<!--                                                <TextBlock Text="{Binding OnDutyTimeLowerLimit, Converter={StaticResource StringToDateTimeConverter}, StringFormat={}{0:HH:mm}}" />-->
+<!--                                            </DataTemplate>-->
+<!--                                        </DataGridTemplateColumn.CellTemplate>-->
+<!--                                    </DataGridTemplateColumn>-->
+<!--                                    <DataGridTemplateColumn Header="下班上限">-->
+<!--                                        <DataGridTemplateColumn.CellEditingTemplate>-->
+<!--                                            <DataTemplate>-->
+<!--                                                <cc:MyDateTimePicker Time="{Binding OffDutyTimeUpperLimit, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}" />-->
+<!--                                            </DataTemplate>-->
+<!--                                        </DataGridTemplateColumn.CellEditingTemplate>-->
+<!--                                        <DataGridTemplateColumn.CellTemplate>-->
+<!--                                            <DataTemplate>-->
+<!--                                                <TextBlock Text="{Binding OffDutyTimeUpperLimit, Converter={StaticResource StringToDateTimeConverter}, StringFormat={}{0:HH:mm}}" />-->
+<!--                                            </DataTemplate>-->
+<!--                                        </DataGridTemplateColumn.CellTemplate>-->
+<!--                                    </DataGridTemplateColumn>-->
+                                    <DataGridTemplateColumn Header="下班正点">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <cc:MyDateTimePicker Time="{Binding OffDutyTime, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding OffDutyTime, Converter={StaticResource StringToDateTimeConverter}, StringFormat={}{0:HH:mm}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+<!--                                    <DataGridTemplateColumn Header="下班下限">-->
+<!--                                        <DataGridTemplateColumn.CellEditingTemplate>-->
+<!--                                            <DataTemplate>-->
+<!--                                                <cc:MyDateTimePicker Time="{Binding OffDutyTimeLowerLimit, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}" />-->
+<!--                                            </DataTemplate>-->
+<!--                                        </DataGridTemplateColumn.CellEditingTemplate>-->
+<!--                                        <DataGridTemplateColumn.CellTemplate>-->
+<!--                                            <DataTemplate>-->
+<!--                                                <TextBlock Text="{Binding OffDutyTimeLowerLimit, Converter={StaticResource StringToDateTimeConverter}, StringFormat={}{0:HH:mm}}" />-->
+<!--                                            </DataTemplate>-->
+<!--                                        </DataGridTemplateColumn.CellTemplate>-->
+<!--                                    </DataGridTemplateColumn>-->
+                                    <DataGridTemplateColumn Header="允许加班">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding AllowOverWork}"
+                                                          HorizontalAlignment="Center" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding AllowOverWork}"
+                                                          IsEnabled="False"
+                                                          HorizontalAlignment="Center" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="加班开始时间">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <cc:MyDateTimePicker Time="{Binding OverWorkBeginTime, Mode=TwoWay, Converter={StaticResource StringToDateTimeConverter}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding OverWorkBeginTime, Converter={StaticResource StringToDateTimeConverter}, StringFormat={}{0:HH:mm}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="默认班次">
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding DefaultArrange}"
+                                                          HorizontalAlignment="Center" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding DefaultArrange}"
+                                                          IsEnabled="False"
+                                                          HorizontalAlignment="Center" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

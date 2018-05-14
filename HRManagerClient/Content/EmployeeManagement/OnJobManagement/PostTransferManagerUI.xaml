@@ -1,0 +1,82 @@
+﻿<Control x:Class="HRManagerClient.PostTransferManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         Name="root">
+    <Control.Resources>
+        <local:ExpireRemindConverter x:Key="ExpireRemindConverter" />
+        <DataTemplate x:Key="ModifiableDataGridHeader">
+            <TextBlock FontWeight="Bold"
+                       Foreground="Crimson"
+                       Text="{Binding}" />
+        </DataTemplate>
+    </Control.Resources>
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <cc:DBNavigationBar DockPanel.Dock="Top"
+                                                AddText="添加记录"
+                                                RemoveText="删除记录"
+                                                AddItemCommand="{Binding AddItemCommand}"
+                                                RemoveItemCommand="{Binding RemoveItemCommand}"/>
+                            <DataGrid ItemsSource="{Binding Model}"
+                                      AutoGenerateColumns="False"
+                                      
+                                      
+                                      
+                                      CanUserAddRows="False"
+                                      SelectedValue="{Binding SelectedItem}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="姓名"
+                                                        Binding="{Binding Employee.EmployeeBaseInfo.EmployName}"
+                                                        Width="75"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="工号"
+                                                        Binding="{Binding Employee.EmployeeNO}"
+                                                        Width="75"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="原部门"
+                                                        Binding="{Binding PrevOperatingPost.Department.DepartName}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="现部门"
+                                                        Binding="{Binding CurOperatingPost.Department.DepartName}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="原岗位"
+                                                        Binding="{Binding PrevOperatingPost.OperatingPostName}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="现岗位"
+                                                        Binding="{Binding CurOperatingPost.OperatingPostName}"
+                                                        Width="100"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="岗位调整状态"
+                                                        Width="100"
+                                                        Binding="{Binding RankStatus, Converter={StaticResource LocalizationConverter}}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="岗位调整日期"
+                                                        Width="120"
+                                                        Binding="{Binding AdjustDateTime, StringFormat={}{0:yyyy-MM-dd}, Converter={StaticResource StringToDateTimeConverter}}"
+                                                        IsReadOnly="True" />
+                                    <DataGridTextColumn Header="调整原因"
+                                                        Width="100"
+                                                        Binding="{Binding AdjustReason}"
+                                                        IsReadOnly="True" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

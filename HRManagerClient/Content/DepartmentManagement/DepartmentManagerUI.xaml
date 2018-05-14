@@ -1,0 +1,254 @@
+﻿<Control x:Class="HRManagerClient.DepartmentManagerUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
+         Name="root">
+    <Control.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DepartmentProperty.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <HierarchicalDataTemplate ItemsSource="{Binding ChildrenDpvms}"
+                                      DataType="{x:Type local:DepartmentViewModel}">
+                <TextBlock Text="{Binding Model.DepartName}"
+                           HorizontalAlignment="Center"
+                           FontSize="18" />
+            </HierarchicalDataTemplate>
+            <SolidColorBrush x:Key="SelectedTVItemBorder"
+                             Color="Wheat" />
+            <SolidColorBrush x:Key="SelectedTVItemFill"
+                             Color="MediumAquamarine" />
+            <SolidColorBrush x:Key="TVItemBorder"
+                             Color="MediumAquamarine" />
+            <SolidColorBrush x:Key="TVItemFill"
+                             Color="AntiqueWhite" />
+            <Style x:Key="hiTreeviewitem"
+                   TargetType="TreeViewItem">
+                <Setter Property="FontFamily" 
+                        Value="{StaticResource CommonFont}"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TreeViewItem">
+                            <Grid HorizontalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Rectangle HorizontalAlignment="Center"
+                                           Height="20"
+                                           Width="2"
+                                           Fill="Transparent"
+                                           Stroke="{StaticResource TVItemBorder}"
+                                           StrokeThickness="1" />
+                                <Border Name="Bd"
+                                        Grid.Row="1"
+                                        Background="{StaticResource TVItemFill}"
+                                        BorderBrush="{StaticResource TVItemBorder}"
+                                        BorderThickness="1"
+                                        CornerRadius="3"
+                                        Margin="6 2">
+                                    <ContentPresenter x:Name="PART_Header"
+                                                      Grid.Column="1"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      ContentSource="Header"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      Margin="5" />
+                                </Border>
+                                <StackPanel Grid.Row="2"
+                                            HorizontalAlignment="Center"
+                                            Orientation="Horizontal"
+                                            IsItemsHost="True" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected"
+                                         Value="True">
+                                    <Setter TargetName="Bd"
+                                            Property="Panel.Background"
+                                            Value="{StaticResource SelectedTVItemFill}" />
+                                    <Setter TargetName="Bd"
+                                            Property="Border.BorderBrush"
+                                            Value="{StaticResource SelectedTVItemBorder}" />
+                                    <Setter TargetName="Bd"
+                                            Property="TextElement.Foreground"
+                                            Value="AntiqueWhite" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="BorderBrush"
+                                            TargetName="Bd"
+                                            Value="Black" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Control.Resources>
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Right"
+                                       LastChildFill="False">
+                                <Button DockPanel.Dock="Top"
+                                        Margin="5"
+                                        Command="{Binding SaveChangesCommand}">保存修改</Button>
+                                <Controls:ToggleSwitch OnLabel="是"
+                                                       OffLabel="否"
+                                                       DockPanel.Dock="Top"
+                                                       IsChecked="{Binding IsEditing}"
+                                                       Header="启用编辑"
+                                                       Margin="5" ThumbIndicatorBrush="LightSeaGreen"/>
+                                <Border BorderThickness="2"
+                                        Background="{Binding EditBackgroundColor}"
+                                        BorderBrush="{Binding EditBorderColor}"
+                                        CornerRadius="3"
+                                        DockPanel.Dock="Top"
+                                        Margin="5">
+                                    <ContentControl ContentTemplate="{StaticResource DpPropTemplate}"
+                                                    Content="{Binding SelectedDp}"
+                                                    IsEnabled="{Binding IsEditing}" />
+                                </Border>
+                            </DockPanel>
+                            <TreeView DockPanel.Dock="Left">
+                                <TreeView.Resources>
+                                    <Style TargetType="{x:Type TreeViewItem}"
+                                           BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                                        <Setter Property="IsExpanded"
+                                                Value="True" />
+                                        <Setter Property="Margin"
+                                                Value="10" />
+                                    </Style>
+                                </TreeView.Resources>
+                                <TreeViewItem Header="部门信息"
+                                              FontSize="14"
+                                              Foreground="Teal"
+                                              TextBlock.TextAlignment="Center"
+                                              ItemsSource="{Binding TopDepartmentVMs}">
+                                </TreeViewItem>
+                            </TreeView>
+                            <Viewbox>
+                                <Grid MinWidth="600" MinHeight="500">
+                                    <TreeView Background="{Binding EditBackgroundColor}"
+                                              BorderBrush="{Binding EditBorderColor}"
+                                              BorderThickness="2">
+                                        <TreeViewItem Header="部门信息"
+                                                      FontSize="18"
+                                                      Foreground="Teal"
+                                                      TextBlock.TextAlignment="Center"
+                                                      ItemsSource="{Binding TopDepartmentVMs}"
+                                                      Tag="{Binding AddNewTopDpCommand}"
+                                                      TreeViewItem.AllowDrop="True"
+                                                      TreeViewItem.Drop="TreeViewItem_Drop">
+                                            <TreeViewItem.Style>
+                                                <Style TargetType="TreeViewItem">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="TreeViewItem">
+                                                                <Grid HorizontalAlignment="Center">
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="*" />
+                                                                    </Grid.RowDefinitions>
+                                                                    <Border Name="Bd"
+                                                                            Grid.Row="1"
+                                                                            Background="{StaticResource TVItemFill}"
+                                                                            BorderBrush="{StaticResource TVItemBorder}"
+                                                                            BorderThickness="2"
+                                                                            CornerRadius="15"
+                                                                            Margin="6 2">
+                                                                        <ContentPresenter x:Name="PART_Header"
+                                                                                          Grid.Column="1"
+                                                                                          HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                                          ContentSource="Header"
+                                                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                                                          Margin="25 5" />
+                                                                    </Border>
+                                                                    <StackPanel Grid.Row="2"
+                                                                                HorizontalAlignment="Center"
+                                                                                Orientation="Horizontal"
+                                                                                IsItemsHost="True" />
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsSelected"
+                                                                             Value="True">
+                                                                        <Setter TargetName="Bd"
+                                                                                Property="Panel.Background"
+                                                                                Value="{StaticResource SelectedTVItemFill}" />
+                                                                        <Setter TargetName="Bd"
+                                                                                Property="Border.BorderBrush"
+                                                                                Value="{StaticResource SelectedTVItemBorder}" />
+                                                                        <Setter TargetName="Bd"
+                                                                                Property="TextElement.Foreground"
+                                                                                Value="AntiqueWhite" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </TreeViewItem.Style>
+                                            <TreeViewItem.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="添加部门"
+                                                              Command="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource FindAncestor, AncestorType=ContextMenu}}" />
+                                                </ContextMenu>
+                                            </TreeViewItem.ContextMenu>
+                                            <TreeViewItem.ItemContainerStyle>
+                                                <Style TargetType="{x:Type TreeViewItem}"
+                                                       BasedOn="{StaticResource hiTreeviewitem}">
+                                                    <Setter Property="Tag"
+                                                            Value="{Binding DataContext, ElementName=root}" />
+                                                    <Setter Property="ContextMenu">
+                                                        <Setter.Value>
+                                                            <ContextMenu>
+                                                                <MenuItem Header="添加子部门"
+                                                                          Command="{Binding PlacementTarget.Tag.AddNewSubDpCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=ContextMenu}}" />
+                                                                <MenuItem Header="移除部门(子部门将置顶)"
+                                                                          Command="{Binding PlacementTarget.Tag.RemoveDpCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=ContextMenu}}" />
+                                                            </ContextMenu>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </TreeViewItem.ItemContainerStyle>
+                                        </TreeViewItem>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewMouseDown">
+                                                <cmd:EventToCommand Command="{Binding SelectTreeNodeCommand}"
+                                                                    PassEventArgsToCommand="True" />
+                                            </i:EventTrigger>
+                                            <!--<i:EventTrigger EventName="TreeViewItem.Drop">
+                                        <cmd:EventToCommand Command="{Binding DropCommand}"
+                                                            PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>-->
+                                        </i:Interaction.Triggers>
+                                    </TreeView>
+                                    <TextBlock Text="部门结构图"
+                                               FontSize="22"
+                                               Margin="15"
+                                               Foreground="Teal"
+                                               Background="Transparent"
+                                               IsHitTestVisible="False"></TextBlock>
+                                </Grid>
+                            </Viewbox>
+                            
+                            
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

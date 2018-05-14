@@ -1,0 +1,53 @@
+﻿<Control x:Class="HRManagerClient.SalaryDetailUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+         xmlns:local="clr-namespace:HRManagerClient"
+         xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" Name="root"
+         xmlns:cc="clr-namespace:HRManagerClient.CustomControls"
+         xmlns:utility="clr-namespace:HRManagerClient.Utility">
+    <Control.Style>
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <DockPanel Margin="0 5"
+                                        DockPanel.Dock="Top" LastChildFill="False">
+                                <TextBox Width="100"
+                                         Margin="0 5"
+                                         Text="{Binding FilterEpNo}"
+                                         Controls:TextBoxHelper.Watermark="筛选工号"
+                                         Controls:TextBoxHelper.UseFloatingWatermark="True"
+                                         Controls:TextBoxHelper.ClearTextButton="True"></TextBox>
+                                <TextBox Width="100"
+                                         Margin="0 5"
+                                         Text="{Binding FilterEpName}"
+                                         Controls:TextBoxHelper.Watermark="筛选姓名"
+                                         Controls:TextBoxHelper.UseFloatingWatermark="True"
+                                         Controls:TextBoxHelper.ClearTextButton="True"></TextBox>
+                                <Button Command="{Binding SelectEpCommand}"
+                                        Margin="0 5">选择员工</Button>
+                                <Button Command="{Binding SearchCommand}"
+                                        Margin="5">查询</Button>
+                                <cc:DBNavigationBar Margin="5"
+                                                    SaveChangesCommand="{Binding UpdateItemCommand}"></cc:DBNavigationBar>
+                            </DockPanel>
+                            <DataGrid ItemsSource="{Binding FiltedItems}"
+                                      SelectedItem="{Binding SelectedItem}"
+                                      AutoGenerateColumns="True"
+                                      AutoGeneratingColumn="DataGrid_OnAutoGeneratingColumn"
+                                      Grid.Row="1">
+                            </DataGrid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Style>
+</Control>

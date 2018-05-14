@@ -1,0 +1,75 @@
+﻿<Controls:MetroWindow x:Class="HRManagerClient.PostSelectDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:local="clr-namespace:HRManagerClient"
+                      xmlns:util="clr-namespace:HRManagerClient.Utility"
+                      xmlns:hrmodel="clr-namespace:HRModel;assembly=HRModel"
+                      Owner="{x:Static local:MainViewModel.MainWindowHandler}"
+                      Title="请选择岗位(双击选定)"
+                      SizeToContent="Width"
+                      Height="300"
+                      ResizeMode="CanResizeWithGrip"
+                      WindowStyle="ToolWindow"
+                      WindowStartupLocation="CenterOwner"
+                      Style="{StaticResource ToolbarDialogWindow}"
+                      ShowInTaskbar="False"
+                      Name="w">
+    <DockPanel>
+        <StackPanel>
+            <Label Content="筛选条件:" Margin="5" Width="250"/>
+            <BulletDecorator Margin="5">
+                <BulletDecorator.Bullet>
+                    <Label Content="岗位编号:" />
+                </BulletDecorator.Bullet>
+                <TextBox Text="{Binding PostNoFilterText, UpdateSourceTrigger=PropertyChanged}" />
+            </BulletDecorator>
+            <BulletDecorator Margin="5"  >
+                <BulletDecorator.Bullet>
+                    <Label Content="岗位名称:" />
+                </BulletDecorator.Bullet>
+                <TextBox Text="{Binding NameFilterText, UpdateSourceTrigger=PropertyChanged}" />
+            </BulletDecorator>
+            <BulletDecorator Margin="5">
+                <BulletDecorator.Bullet>
+                    <Label Content="隶属部门:" />
+                </BulletDecorator.Bullet>
+                <DockPanel IsEnabled="{Binding IsDpFilterEditable}">
+                    <Button DockPanel.Dock="Right"
+                            Content="..."
+                            Click="SelectDp_Click" />
+                    <Button DockPanel.Dock="Right"
+                            Content=" X "
+                            Click="ClearSelectedDp_Click" />
+                    <TextBox Text="{Binding DpFilter.DepartName}"
+                             IsReadOnly="True" />
+
+                </DockPanel>
+            </BulletDecorator>
+        </StackPanel>
+        <DockPanel>
+            <Label Content="员工列表:"
+                   DockPanel.Dock="Top"
+                   Margin="0 5" />
+            <ListView ItemsSource="{Binding FiltedItems}"
+                      Margin="5"
+                      BorderThickness="1"
+                      SelectedItem="{Binding SelectedOpp}" 
+                      MouseDoubleClick="ListView_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="岗位编号"
+                                        DisplayMemberBinding="{Binding OperatingPostNo}" Width="75"></GridViewColumn>
+                        <GridViewColumn Header="岗位名称"
+                                        DisplayMemberBinding="{Binding OperatingPostName}"
+                                        Width="125"></GridViewColumn>
+                        <GridViewColumn Header="隶属部门"
+                                        DisplayMemberBinding="{Binding Department.DepartName}"
+                                        Width="75"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+    </DockPanel>
+</Controls:MetroWindow>
